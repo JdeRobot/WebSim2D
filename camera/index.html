@@ -1,56 +1,66 @@
 <html>
   <head>
+    <!-- A-Frame comoponent -->
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-
+    <!-- Grid Component -->
     <script src="https://rawgit.com/dbradleyfl/aframe-gridhelper/master/dist/aframe-gridhelper-component.min.js"></script>
+    <!-- Animation component -->
     <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script> 
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   </head>
  
   <body>
-    <a-scene>
-      <!-- OPTIMIZACIÓN DE LA PRECARGA DE LA ESCENA. Primero carga la escena y luego las imágenes. -->
-      <a-assets>
-        <img id="sky" src="assets/textures/sky.png">
-        <!-- <a-asset-item id="pibot" src="assets/models/pibot.dae"></a-asset-item> -->
-        <a-asset-item id="pibot" src="assets/models/mbot.dae"></a-asset-item>
-        <img id="ground" src="assets/textures/ground_text.jpg">
-      </a-assets>
+    <div>
+      <a-scene embedded>
+        <!-- OPTIMIZACIÓN DE LA PRECARGA DE LA ESCENA. Primero carga la escena y luego las imágenes. -->
+        <a-assets>
+          <img id="sky" src="assets/textures/sky.png">
+          <!-- <a-asset-item id="pibot" src="assets/models/pibot.dae"></a-asset-item> -->
+          <a-asset-item id="pibot" src="assets/models/mbot.dae"></a-asset-item>
+          <img id="ground" src="assets/textures/ground_text.jpg">
+        </a-assets>
 
 
-      <div>
-        <button id="switch_camera" value="Switch Camera" onClick="SwitchCamera(this.id)">
-      </div>
+        <div class="btn btn-default" style="height: 300px; width: 300px">
+          <button id="switch_camera" value="Switch Camera" onClick="SwitchCamera(this.id)">
+        </div>
 
 
-    	<!-- Camera -->
-    	<a-entity id="camera" camera="active: true" look-controls wasd-controls position="0 3.5 5" rotation="-45 -45 0" data-aframe-default-camera></a-entity>
-      <a-entity id="camera2" camera="active: false" position="0 1.6 0" rotation="-45 -45 0" data-aframe-default-camera></a-entity>
+      	<!-- Camera -->
+      	<a-entity id="primaryCamera" camera="active: true" look-controls wasd-controls position="0 3.5 5" rotation="-45 -45 0" data-aframe-default-camera><a-camera></a-camera></a-entity>
+        <a-entity id="secondaryCamera" camera="active: false" position="0 1.6 0" rotation="-45 -45 0" data-aframe-default-camera><a-camera spectator="canvas:#spectatorDiv;" active="false">
+                </a-camera></a-entity>
 
-      <!-- Pibot -->
-      <a-entity collada-model="#pibot" scale="5 5 5">
-        <a-animation attribute="position" from="0 0 0" to="2 0 0" dur="2000"></a-animation>
-        <a-animation attribute="rotation" from="0 0 0" to="0 90 0" delay="2000" dur="2000"></a-animation>
-        <a-animation attribute="position" from="2 0 0" to="2 0 -4" delay="4000" dur="4000"></a-animation>
-        <a-animation attribute="rotation" from="0 90 0" to="0 180 0" delay="8000" dur="2000"></a-animation>
-        <a-animation attribute="position" from="2 0 -4" to="-2 0 -4" delay="10000" dur="4000"></a-animation>
-        <a-animation attribute="rotation" from="0 180 0" to="0 290 0" delay="14000" dur="2000"></a-animation>
-        <a-animation attribute="position" from="-2 0 -4" to="0 0 0" delay="16000" dur="4000"></a-animation>
-      </a-entity>
-
-
-    	<!-- Scenario -->
-      <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" repeat="4 4" src="#ground"></a-plane>
+        <!-- Pibot -->
+        <a-entity collada-model="#pibot" scale="5 5 5">
+          <a-animation attribute="position" from="0 0 0" to="2 0 0" dur="2000"></a-animation>
+          <a-animation attribute="rotation" from="0 0 0" to="0 90 0" delay="2000" dur="2000"></a-animation>
+          <a-animation attribute="position" from="2 0 0" to="2 0 -4" delay="4000" dur="4000"></a-animation>
+          <a-animation attribute="rotation" from="0 90 0" to="0 180 0" delay="8000" dur="2000"></a-animation>
+          <a-animation attribute="position" from="2 0 -4" to="-2 0 -4" delay="10000" dur="4000"></a-animation>
+          <a-animation attribute="rotation" from="0 180 0" to="0 290 0" delay="14000" dur="2000"></a-animation>
+          <a-animation attribute="position" from="-2 0 -4" to="0 0 0" delay="16000" dur="4000"></a-animation>
+        </a-entity>
 
 
-    	<!-- Illumination -->
-    	<a-light type="ambient" color="grey"></a-light>
-    	<a-light type="point" intensity="2" position="-2 2 4"></a-light>
+      	<!-- Scenario -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" repeat="4 4" src="#ground"></a-plane>
 
-    	<!-- Sky -->
-      <a-sky src="#sky"></a-sky>
-      <!-- <a-sky color="blue"></a-sky> -->
 
-    </a-scene>
+      	<!-- Illumination -->
+      	<a-light type="ambient" color="grey"></a-light>
+      	<a-light type="point" intensity="2" position="-2 2 4"></a-light>
+
+      	<!-- Sky -->
+        <a-sky src="#sky"></a-sky>
+        <!-- <a-sky color="blue"></a-sky> -->
+
+
+
+
+    </div>
+      </a-scene>
   </body>
    <script>
   	var scene = document.querySelector('a-scene');
