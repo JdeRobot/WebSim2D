@@ -1,76 +1,137 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script>
+     Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
+      value: function (callback, type, quality) {
 
-    <script src="https://rawgit.com/dbradleyfl/aframe-gridhelper/master/dist/aframe-gridhelper-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script> 
+        var binStr = atob( this.toDataURL(type, quality).split(',')[1] ),
+            len = binStr.length,
+            arr = new Uint8Array(len);
+
+        for (var i=0; i<len; i++ ) {
+         arr[i] = binStr.charCodeAt(i);
+        }
+
+        callback( arr );
+      }
+     });
+
+        function showData(a){
+            console.log(a)
+        }
+      AFRAME.registerComponent('spectator',{
+        'schema': {
+          canvas: {
+            type: 'string',
+            default: ''
+          },
+          // desired FPS of spectator dislay
+          fps: {
+            type: 'number',
+            default: '30.0'
+          }
+        },
+        'init': function() {
+          var targetEl = document.querySelector(this.data.canvas)
+          this.counter = 0;
+          this.renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer: true } );
+          this.renderer.setPixelRatio( window.devicePixelRatio );
+          this.renderer.setSize( targetEl.offsetWidth, targetEl.offsetHeight );
+          // creates spectator canvas
+          targetEl.appendChild(this.renderer.domElement);
+          
+
+        },
+        'tick': function(time, timeDelta) {
+          var loopFPS = 1000.0 / timeDelta;
+          var hmdIsXFasterThanDesiredFPS = loopFPS / this.data.fps;
+          var renderEveryNthFrame = Math.round(hmdIsXFasterThanDesiredFPS);
+          if(this.counter % renderEveryNthFrame === 0){
+            this.render(timeDelta);
+          }
+          this.counter += 1;  
+        },
+        'render': function(){
+          this.renderer.render( this.el.sceneEl.object3D , this.el.object3DMap.camera );
+          //var strMime = "image/jpeg";
+          //imgData = this.renderer.domElement.toDataURL(strMime);
+          imgData = this.renderer.domElement.toBlob(showData);
+          console.log("--------------------------" + imgData);
+
+        },
+        'getCameraInfo': function(){
+            console.log(this.el.object3DMap.camera);
+        },
+      });
+
+      
+
+    </script>
+
+
   </head>
- 
   <body>
-    <a-scene>
-      <!-- OPTIMIZACIÓN DE LA PRECARGA DE LA ESCENA. Primero carga la escena y luego las imágenes. -->
-      <a-assets>
-        <img id="sky" src="assets/textures/sky.png">
-        <a-asset-item id="pibot" src="assets/models/pibot.dae"></a-asset-item>
-        <!-- <a-asset-item id="pibot" src="assets/models/mbot.dae"></a-asset-item> -->
-        <img id="ground" src="assets/textures/ground_text.jpg">
-      </a-assets>
+    <table style="border-style:solid;">
+      <tr>
+        <th><h1>Scene</h1></th>
+        <th><h1>Camera Robot</h1></th>
+      </tr>    
+      <tr>
+        <td style="border-style:solid;">
+          <div style="height:600px; width:800px;">
+            
+            <a-scene embedded>
+
+                <a-assets>
+                    <img id="sky" src="assets/textures/sky.png">
+                    <a-asset-item id="pibot" src="assets/models/mbot.dae"></a-asset-item>
+                    <img id="ground" src="assets/textures/ground_text.jpg">
+                </a-assets>
+
+                <!-- Pibot -->
+                <a-entity collada-model="#pibot" scale="5 5 5">
+                    <a-animation attribute="position" from="0 0 0" to="2 0 0" dur="2000"></a-animation>
+                    <a-animation attribute="rotation" from="0 0 0" to="0 90 0" delay="2000" dur="2000"></a-animation>
+                    <a-animation attribute="position" from="2 0 0" to="2 0 -4" delay="4000" dur="4000"></a-animation>
+                    <a-animation attribute="rotation" from="0 90 0" to="0 180 0" delay="8000" dur="2000"></a-animation>
+                    <a-animation attribute="position" from="2 0 -4" to="-2 0 -4" delay="10000" dur="4000"></a-animation>
+                    <a-animation attribute="rotation" from="0 180 0" to="0 290 0" delay="14000" dur="2000"></a-animation>
+                    <a-animation attribute="position" from="-2 0 -4" to="0 0 0" delay="16000" dur="4000"></a-animation>
 
 
-      <div>
-        <button id="switch_camera" value="Switch Camera" onClick="SwitchCamera(this.id)">
-      </div>
+                    <a-entity id="secondaryCamera" position="0.1 0.02 0" rotation="-20 -90 0">
+                        <a-camera spectator="canvas:#spectatorDiv;" active="false"></a-camera>
+                    </a-entity>
+                </a-entity>
 
 
-    	<!-- Camera -->
-    	<a-entity id="camera" camera="active: true" look-controls wasd-controls position="0 3.5 5" rotation="-45 -45 0" data-aframe-default-camera></a-entity>
-      <a-entity id="camera2" camera="active: false" position="0 1.6 0" rotation="-45 -45 0" data-aframe-default-camera></a-entity>
+                <!-- Scenario -->
+                <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" repeat="4 4" src="#ground"></a-plane>
 
-      <!-- Pibot -->
-      <a-entity collada-model="#pibot" scale="5 5 5">
-        <a-animation attribute="position" from="0 0 0" to="2 0 0" dur="2000"></a-animation>
-        <a-animation attribute="rotation" from="0 0 0" to="0 90 0" delay="2000" dur="2000"></a-animation>
-        <a-animation attribute="position" from="2 0 0" to="2 0 -4" delay="4000" dur="4000"></a-animation>
-        <a-animation attribute="rotation" from="0 90 0" to="0 180 0" delay="8000" dur="2000"></a-animation>
-        <a-animation attribute="position" from="2 0 -4" to="-2 0 -4" delay="10000" dur="4000"></a-animation>
-        <a-animation attribute="rotation" from="0 180 0" to="0 290 0" delay="14000" dur="2000"></a-animation>
-        <a-animation attribute="position" from="-2 0 -4" to="0 0 0" delay="16000" dur="4000"></a-animation>
-      </a-entity>
+                <!-- Illumination -->
+                <a-light type="ambient" color="grey"></a-light>
+                <a-light type="point" intensity="2" position="-2 2 4"></a-light>
+
+                <!-- Sky -->
+                <a-sky src="#sky"></a-sky>
 
 
-    	<!-- Scenario -->
-      <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" repeat="4 4" src="#ground"></a-plane>
+                <a-entity id="primaryCamera" position="0 4 3.8" rotation="-45 0 0">
+                    <a-camera></a-camera>
+                </a-entity>
 
 
-    	<!-- Illumination -->
-    	<a-light type="ambient" color="grey"></a-light>
-    	<a-light type="point" intensity="2" position="-2 2 4"></a-light>
 
-    	<!-- Sky -->
-      <a-sky src="#sky"></a-sky>
-      <!-- <a-sky color="blue"></a-sky> -->
 
-    </a-scene>
+
+            </a-scene>
+          </div>
+        </td>
+        <td style="border-style:solid;">
+          <div id="spectatorDiv" style="height:300px; width:400px;"></div>
+        </td>
+      </tr>
+    </table>
   </body>
-   <script>
-  	var scene = document.querySelector('a-scene');
-    var size = 100;
-    var step = 50;
-    var axisHelper = new THREE.AxisHelper( 3 );
-    var gridHelper = new THREE.GridHelper( size, step );    
-    scene.object3D.add(gridHelper);
-    scene.object3D.add(axisHelper);
-
-
-
-    function SwitchCamera(id){
-      document.getElementById("camera").camera = "active: false";
-      document.getElementById("camera2").camera = "active: true";
-    }
-
-
-    function getCameraInfo(id){
-      console.log(document.getElementById(id).position)
-    }
-  </script>
 </html>
