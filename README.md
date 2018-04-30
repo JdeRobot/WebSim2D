@@ -28,6 +28,8 @@ A-frame can be developed from a plain HTML file without having to install anythi
 
 As an example to learn how to use the tools and possibilities offered by the framework we added two cameras to the scene: one main camera and the other one with the robot.
 
+[Example]: https://github.com/JdeRobot/WebSim/blob/master/camera/assets/resources/demoCamera.gif "Example with Camera Entity"
+
 References:
 
 [A-frame - Framework](https://aframe.io/docs/0.8.0/introduction/)
