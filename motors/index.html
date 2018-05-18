@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <!-- Physics for A-Frame VR -->
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.js"></script>
+    <script src="js/Ice.min.js"></script>
+    <script src="js/Glacier2.min.js"></script>
+    <script src="js/Ice/motors.js"></script>
+    <script src="js/motors.js"></script>
+    <script>
+     Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
+      value: function (callback, type, quality) {
+
+        var binStr = atob( this.toDataURL(type, quality).split(',')[1] ),
+            len = binStr.length,
+            arr = new Uint8Array(len);
+
+        for (var i=0; i<len; i++ ) {
+         arr[i] = binStr.charCodeAt(i);
+        }
+
+        callback( arr );
+      }
+     });
+
+        function showData(a){
+            console.log(a)
+        }
+      AFRAME.registerComponent('spectator',{
+        'schema': {
+          canvas: {
+            type: 'string',
+            default: ''
+          },
+          // desired FPS of spectator dislay
+          fps: {
+            type: 'number',
+            default: '30.0'
+          }
+        },
+        'init': function() {
+          var targetEl = document.querySelector(this.data.canvas)
+          this.counter = 0;
+          this.renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer: true } );
+          this.renderer.setPixelRatio( window.devicePixelRatio );
+          this.renderer.setSize( targetEl.offsetWidth, targetEl.offsetHeight );
+          // creates spectator canvas
+          targetEl.appendChild(this.renderer.domElement);
+        },
+        'tick': function(time, timeDelta) {
+          var loopFPS = 1000.0 / timeDelta;
+          var hmdIsXFasterThanDesiredFPS = loopFPS / this.data.fps;
+          var renderEveryNthFrame = Math.round(hmdIsXFasterThanDesiredFPS);
+          if(this.counter % renderEveryNthFrame === 0){
+            this.render(timeDelta);
+          }
+          this.counter += 1;
+        },
+        'render': function(){
+          this.renderer.render( this.el.sceneEl.object3D , this.el.object3DMap.camera );
+          //var strMime = "image/jpeg";
+          //imgData = this.renderer.domElement.toDataURL(strMime);
+          //imgData = this.renderer.domElement.toBlob(showData);
+          //console.log("--------------------------" + imgData);
+        },
+        'getCameraInfo': function(){
+            console.log(this.el.object3DMap.camera);
+        },
+      });
+    </script>
+
+
+  </head>
+  <body>
+    <table style="border-style:solid;">
+      <tr>
+        <th><h1>Scene</h1></th>
+        <th><h1>Camera Robot</h1></th>
+      </tr>    
+      <tr>
+        <td style="border-style:solid;">
+          <div style="height:600px; width:800px;">
+            
+            <a-scene embedded physics="debug: true">
+
+                <a-assets>
+                    <img id="sky" src="assets/textures/sky.png">
+                    <a-asset-item id="model-pibot" src="assets/models/pibot.dae"></a-asset-item>
+                    <a-asset-item id="model-chasis" src="assets/models/chasis.dae"></a-asset-item>
+                    <a-asset-item id="model-right-wheel" src="assets/models/right_wheel.dae"></a-asset-item>
+                    <a-asset-item id="model-left-wheel" src="assets/models/left_wheel.dae"></a-asset-item>
+                    <img id="ground" src="assets/textures/ground_text.jpg">
+                </a-assets>
+
+                <!-- Pibot -->
+                <a-entity dynamic-body id="a-pibot" collada-model="#model-pibot" scale="5 5 5" rotation="0 180 0">
+                    <a-entity id="secondaryCamera" position="0.1 0.02 0" rotation="-20 -90 0">
+                      <a-camera spectator="canvas:#spectatorDiv;" active="false" wasd-controls-enabled="false" look-controls-enabled="false"></a-camera>
+                    </a-entity>
+                </a-entity>
+
+                <a-box dynamic-body="mass:10000" position="5 0.6 0" rotation="0 45 0" color="#4CC3D9"></a-box>
+
+
+                <!-- Scenario -->
+                <a-plane static-body position="0 0 0" rotation="-90 0 0" width="100" height="100" repeat="4 4" src="#ground"></a-plane>
+
+                <!-- Illumination -->
+                <a-light type="ambient" color="grey"></a-light>
+                <a-light type="point" intensity="2" position="-2 2 4"></a-light>
+
+                <!-- Sky -->
+                <a-sky src="#sky"></a-sky>
+
+
+                <a-entity id="primaryCamera" position="0 4 3.8" rotation="-45 0 0">
+                    <a-camera></a-camera>
+                </a-entity>
+
+            </a-scene>
+
+            <!--<script>
+              {/* var x = 0
+              var y = 180
+              var pibot = document.querySelector('#a-pibot');
+              movePiBot = setInterval(function(){
+                x+= 0.04
+                pibot.setAttribute('position', {x: x, y: 0, z: 0});
+                console.log(x)
+
+                if(x >= 6){
+                  clearInterval(movePiBot)
+                  rotatePiBot = setInterval(function(){
+                    y+= 0.5
+                    pibot.setAttribute('rotation', {x: 0, y: y, z: 0});
+                    console.log(x)
+    
+                    if(y >= 270){
+                      clearInterval(rotatePiBot)
+                    }
+                  }, 10)
+    
+                }
+              }, 10)  */
+              
+
+
+            </script>-->
+
+
+        
+
+
+          </div>
+        </td>
+        <td style="border-style:solid;">
+          <div id="spectatorDiv" style="height:300px; width:400px;"></div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
