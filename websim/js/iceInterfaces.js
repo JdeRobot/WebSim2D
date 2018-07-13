@@ -48,7 +48,7 @@ class CameraI extends jderobot.Camera
 
         let  imageData = ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
         let data  = new Uint8Array(imageData.width*imageData.height*3);
-        
+
         let j = 0;
         let i = 0;
         for (i=0; i < imageData.data.length; i+=4){
@@ -58,7 +58,7 @@ class CameraI extends jderobot.Camera
             j+=3;
         }
 
-        
+
         let msgImage = new jderobot.ImageData();
         let desc = new jderobot.ImageDescription();
         msgImage.pixelData = data;
@@ -75,6 +75,7 @@ class CameraI extends jderobot.Camera
 
 
 class MotorsI extends jderobot.Motors
+
 {
     constructor(robotId){
         super();
@@ -107,6 +108,7 @@ class MotorsI extends jderobot.Motors
     setVelocity(){
         this.robot.body.velocity.set(this.velocity.x, this.velocity.y, this.velocity.z);
         this.robot.body.angularVelocity.set(this.velocity.ax, this.velocity.ay, this.velocity.az);
+        console.log(this.robot.body.velocity);
+        console.log(this.robot.body.angularVelocity);
     }
 }
-

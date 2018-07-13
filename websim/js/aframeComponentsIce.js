@@ -21,7 +21,6 @@ AFRAME.registerComponent('spectator',{
 
       this.canvas2d = document.createElement('canvas');
       this.canvas2d.id = "camera2";
-      this.canvas2d.style.display="none";
       this.canvas2d.width = this.renderer.domElement.width;
       this.canvas2d.height = this.renderer.domElement.height;
       //this.canvas2d.style.display="none";
@@ -52,5 +51,4 @@ AFRAME.registerComponent('spectator',{
     'getCameraInfo': function(){
         console.log(this.el.object3DMap.camera);
     },
-
   });
