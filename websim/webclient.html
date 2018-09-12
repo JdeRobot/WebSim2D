@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WebSim - Alvaro Paniagua Tena</title>
+    <meta charset="utf-8" />
+    <!-- Physics for A-Frame VR -->
+    <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/js-interface/interfacesRobot.js" ></script>
+    <script src="google-blockly/blockly_compressed.js"></script>
+    <script src="google-blockly/blocks_compressed.js"></script>
+    <script src="google-blockly/msg/js/es.js"></script>
+    <script src="js/js-interface/editor.js"></script>
+    <script src="google-blockly/javascript_compressed.js"></script>
+    <script src="js/js-interface/customBlocks/moveForwardBlock.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="myIFrame">
+        <iframe id="websimframe" allowvr="yes" name="websim" src="/simulator.html" style="width: 100%; height:100%;" allow-same-origin allow-scripts></iframe>
+      </div>
+
+      <div id="ace">
+// Press Ctrl-, to enter code editor configuration.
+// Write your algorithm inside next function and press RUN.
+// Always use this code above.
+$("#scene").on('loaded', function() {
+    var myRobot = new RobotI('a-pibot');
+});
+      </div>
+      <div id="blockly-div">
+        <xml id="toolbox" style="display: none">
+          <block type="controls_if"></block>
+          <block type="controls_repeat_ext"></block>
+          <block type="logic_compare"></block>
+          <block type="math_number"></block>
+          <block type="math_arithmetic"></block>
+          <block type="text"></block>
+          <block type="text_print"></block>
+          <block type="move_forward"></block>
+          </category>
+        </xml>
+      </div>
+      <button onclick="changeEditor()" id="changebtn">CHANGE EDITOR</button>
+      <button onclick="getCode()" id="runbtn">RUN</button>
+    </div>
+  </body>
+</html>
