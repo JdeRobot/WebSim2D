@@ -1,0 +1,17 @@
+{
+  "name": "WebSim",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "js-yaml": "^3.12.0",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {
+    "electron": "^1.7.10",
+    "ice": "^3.7.0"
+  }
+}

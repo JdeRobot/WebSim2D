@@ -35,3 +35,23 @@ References:
 [A-frame - Framework](https://aframe.io/docs/0.8.0/introduction/)
 
 [A-frame - Github](https://github.com/aframevr/aframe)
+
+## Running
+
+For Ice Teleoperator:
+
+```
+cd websim/
+python -m SimpleHTTPServer 8000
+```
+
+open in your browser localhost:8000.
+
+For Ros Teleoperator:
+
+```
+cd websim/
+npm install
+npm start
+```
+Ros teleoperator is in the repository of github viz
