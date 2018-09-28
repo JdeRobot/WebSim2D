@@ -7,11 +7,11 @@ AFRAME.registerComponent('spectator',{
       // desired FPS of spectator dislay
       fps: {
         type: 'number',
-        default: 30.0
+        default: '30.0'
       }
     },
     'init': function() {
-      var targetEl = document.querySelector(this.data.canvas);
+      var targetEl = document.querySelector(this.data.canvas)
       this.counter = 0;
       this.renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer: true } );
       this.renderer.setPixelRatio( window.devicePixelRatio );
@@ -21,13 +21,12 @@ AFRAME.registerComponent('spectator',{
 
       this.canvas2d = document.createElement('canvas');
       this.canvas2d.id = "camera2";
-      this.canvas2d.style.display="none";
       this.canvas2d.width = this.renderer.domElement.width;
       this.canvas2d.height = this.renderer.domElement.height;
-      this.canvas2d.style.display="none";
+      //this.canvas2d.style.display="none";
 
       targetEl.appendChild(this.canvas2d);
-      this.getCameraInfo(); // references the function of the component getCameraInfo (last lines)
+      this.getCameraInfo();
     },
     'tick': function(time, timeDelta) {
       var loopFPS = 1000.0 / timeDelta;
@@ -52,8 +51,4 @@ AFRAME.registerComponent('spectator',{
     'getCameraInfo': function(){
         console.log(this.el.object3DMap.camera);
     },
-<<<<<<< HEAD:websim/js/js-interface/spectatorComponent.js
-=======
-
->>>>>>> master:websim/js/aframeComponents.js
   });

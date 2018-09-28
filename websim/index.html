@@ -2,15 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <script>
+      try {
+      window.$ = window.jQuery = require('jquery');
+    } catch(e){
+      console.log(e);
+    }
+    </script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"></script>
+<<<<<<< HEAD
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <!-- Physics for A-Frame VR -->
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.js"></script>
     <script src="js/Ice/Ice.min.js"></script>
     <script src="js/Ice/Glacier2.min.js"></script>
+=======
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  	<script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    <!-- Physics for A-Frame VR -->
+      <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.js"></script>
+    <script src="js/websim.js"></script>
+    <script src="js/aframeComponents.js"></script>
+    <script src="js/rosTeleop.js"></script>
+    <script src="js/Ice.min.js"></script>
+    <script src="js/Glacier2.min.js"></script>
+>>>>>>> master
     <script src="js/Ice/motors.js"></script>
     <script src="js/Ice/containers.js"></script>
     <script src="js/Ice/exceptions.js"></script>
@@ -18,10 +38,16 @@
     <script src="js/Ice/common.js"></script>
     <script src="js/Ice/image.js"></script>
     <script src="js/Ice/camera.js"></script>
+<<<<<<< HEAD
     <script src="js/spectatorComponent.js"></script>
     <script src="js/Ice/iceInterfaces.js"></script>
     <script src="js/Ice/ice-websim.js"></script>
 
+=======
+    <script src="js/aframeComponentsIce.js"></script>
+    <script src="js/iceInterfaces.js"></script>
+    <script src="js/iceTeleop.js"></script>
+>>>>>>> master
   </head>
   <body>
     <table style="border-style:solid;">
@@ -33,7 +59,11 @@
         <td style="border-style:solid;">
           <div style="height:600px; width:800px;">
 
+<<<<<<< HEAD
             <a-scene stats embedded physics="debug: true" inspector="url: https://aframe.io/releases/0.4.0/aframe-inspector.min.js">
+=======
+            <a-scene embedded physics="debug: true">
+>>>>>>> master
 
                 <a-assets>
                     <img id="sky" src="assets/textures/sky.png">
@@ -42,9 +72,15 @@
                 </a-assets>
 
                 <!-- Pibot -->
+<<<<<<< HEAD
                 <a-entity dynamic-body id="a-pibot" collada-model="#model-pibot" scale="20 20 20" rotation="0 180 0">
                     <a-entity id="secondaryCamera" position="0 0 0" rotation="-20 -90 0">
                       <a-camera spectator="canvas:#spectatorDiv;" position="0 0.03 -0.01" active="false" wasd-controls-enabled="false" look-controls-enabled="false"></a-camera>
+=======
+                <a-entity dynamic-body id="a-pibot" collada-model="#model-pibot" scale="5 5 5" rotation="0 0 0">
+                    <a-entity id="secondaryCamera" position="0.1 0.02 0" rotation="-20 -90 0">
+                      <a-camera spectator="canvas:#spectatorDiv;" active="false" wasd-controls-enabled="false" look-controls-enabled="false"></a-camera>
+>>>>>>> master
                     </a-entity>
                 </a-entity>
 

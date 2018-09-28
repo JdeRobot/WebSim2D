@@ -1,29 +1,27 @@
-
-
-$(document).ready(function() {
-
+function initIce(){
 
 	var RouterPrx = Glacier2.RouterPrx;
     var SetterMotorsPrx = jderobot.SetterMotorsPrx;
 	var SetterCameraPrx = jderobot.SetterCameraPrx;
     var MotorsPrx = jderobot.MotorsPrx;
 	var CameraPrx = jderobot.CameraPrx;
-    
-    
+
+
 	async function signin(){
 
 		let id = new Ice.InitializationData();
         id.properties = Ice.createProperties();
         let communicator = Ice.initialize(id);
 
-        const routerBase = communicator.stringToProxy("DemoGlacier2/router:ws -p 5063 -h localhost");
+        const routerBase = communicator.stringToProxy(config.Glacier.endpoint + ":ws -h " + config.Glacier.address +" -p " +config.Glacier.port);
+	console.log(routerBase);
 
         const router = await Glacier2.RouterPrx.checkedCast(routerBase);
 
         communicator.setDefaultRouter(router);
 
-        const baseMotors = communicator.stringToProxy("setMotors:ws -h localhost -p 10000");
-        const baseCamera = communicator.stringToProxy("setCamera:ws -h localhost -p 10000");
+        const baseMotors = communicator.stringToProxy(config.endpointM + ":ws -h " + config.address +" -p "+ config.port);
+        const baseCamera = communicator.stringToProxy(config.endpointI + ":ws -h " + config.address +" -p "+ config.port);
 
         await router.createSession("userid", "xxx");
 
@@ -64,7 +62,7 @@ $(document).ready(function() {
         const categoryCamera = await router.getCategoryForClient();
         camerasIdent.name = "Camera";
         camerasIdent.category = categoryCamera;
-        
+
         const CameraR = CameraPrx.uncheckedCast(adapter.add(camera, camerasIdent));
 
 
@@ -78,4 +76,4 @@ $(document).ready(function() {
 
     signin()
 
-});
+}
