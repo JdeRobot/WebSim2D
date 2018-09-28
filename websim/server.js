@@ -41,7 +41,17 @@ function handler(req, res){
       });
     }
   }else if(req.url == "/ice"){
-    fs.readFile(__dirname + '/index.html', (err, data) =>{
+    fs.readFile(__dirname + '/iceinterface.html', (err, data) =>{
+      if(err){
+        res.writeHead(500);
+        return res.end("Error loading page.");
+      }
+
+      res.writeHead(200);
+      res.end(data);
+    });
+  }else if(req.url == "/ros"){
+    fs.readFile(__dirname + '/rosinterface.html', (err, data) =>{
       if(err){
         res.writeHead(500);
         return res.end("Error loading page.");

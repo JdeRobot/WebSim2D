@@ -48,7 +48,7 @@ class CameraI extends jderobot.Camera
 
         let  imageData = ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
         let data  = new Uint8Array(imageData.width*imageData.height*3);
-        
+
         let j = 0;
         let i = 0;
         for (i=0; i < imageData.data.length; i+=4){
@@ -58,7 +58,7 @@ class CameraI extends jderobot.Camera
             j+=3;
         }
 
-        
+
         let msgImage = new jderobot.ImageData();
         let desc = new jderobot.ImageDescription();
         msgImage.pixelData = data;
@@ -104,9 +104,23 @@ class MotorsI extends jderobot.Motors
     getL(){
         return this.velocity.y;
     }
+    getRotation(){
+      return this.robot.getAttribute('rotation');
+    }
     setVelocity(){
-        this.robot.body.velocity.set(this.velocity.x, this.velocity.y, this.velocity.z);
-        this.robot.body.angularVelocity.set(this.velocity.ax, this.velocity.ay, this.velocity.az);
+      let rotation = this.getRotation();
+      let newpos = updatePosition(rotation, this.velocity, this.robot.body.position);
+      this.robot.body.position.set(newpos.x, newpos.y, newpos.z);
+      this.robot.body.angularVelocity.set(this.velocity.ax, this.velocity.ay, this.velocity.az);
     }
 }
 
+function updatePosition(rotation, velocity, robotPos){
+  let x = (velocity.x/10) * Math.cos(rotation.y * Math.PI/180);
+  let z = (velocity.x/10) * Math.sin(rotation.y * Math.PI/180);
+
+  robotPos.x += x;
+  robotPos.z -= z;
+
+  return robotPos;
+}
