@@ -75,7 +75,6 @@ class CameraI extends jderobot.Camera
 
 
 class MotorsI extends jderobot.Motors
-
 {
     constructor(robotId){
         super();
@@ -105,10 +104,23 @@ class MotorsI extends jderobot.Motors
     getL(){
         return this.velocity.y;
     }
-    setVelocity(){
-        this.robot.body.velocity.set(this.velocity.x, this.velocity.y, this.velocity.z);
-        this.robot.body.angularVelocity.set(this.velocity.ax, this.velocity.ay, this.velocity.az);
-        console.log(this.robot.body.velocity);
-        console.log(this.robot.body.angularVelocity);
+    getRotation(){
+      return this.robot.getAttribute('rotation');
     }
+    setVelocity(){
+      let rotation = this.getRotation();
+      let newpos = updatePosition(rotation, this.velocity, this.robot.body.position);
+      this.robot.body.position.set(newpos.x, newpos.y, newpos.z);
+      this.robot.body.angularVelocity.set(this.velocity.ax, this.velocity.ay, this.velocity.az);
+    }
+}
+
+function updatePosition(rotation, velocity, robotPos){
+  let x = (velocity.x/10) * Math.cos(rotation.y * Math.PI/180);
+  let z = (velocity.x/10) * Math.sin(rotation.y * Math.PI/180);
+
+  robotPos.x += x;
+  robotPos.z -= z;
+
+  return robotPos;
 }
