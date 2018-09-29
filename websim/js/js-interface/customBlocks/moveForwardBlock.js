@@ -31,7 +31,7 @@ Blockly.Blocks['move_forward'] = {
 Blockly.JavaScript['move_forward'] = function(block) {
   var variable_name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
   var value_robotvar = Blockly.JavaScript.valueToCode(block, 'ROBOTVAR', Blockly.JavaScript.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = variable_name + '.setV(' + value_robotvar + ');';
+
+  var code = variable_name + '.setV(' + value_robotvar + '); \n';
   return code;
 };

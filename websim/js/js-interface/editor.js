@@ -9,7 +9,14 @@ $(document).ready(function(){
   demoWorkspace = Blockly.inject('blockly-div', {
     media: 'google-blockly/media/',
     toolbox: document.getElementById('toolbox'),
-    toolboxPosition: 'end',
+    zoom:
+         {controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2},
+    trashcan: true,
     horizontalLayout: true,
     scrollbars: true
   });
