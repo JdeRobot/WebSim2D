@@ -38,7 +38,8 @@ function getCode(){
   ajaxreq.onreadystatechange = function (aEvt) {
     if (ajaxreq.readyState == 4) {
         // Reload the iframe
-        document.getElementById('websimframe').contentWindow.location.reload();
+        var url = JSON.parse(ajaxreq.responseText).url;
+        $('#websimframe').attr('src', url);
     }
   };
   ajaxreq.send(content);

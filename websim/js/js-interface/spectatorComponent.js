@@ -52,5 +52,3 @@ AFRAME.registerComponent('spectator',{
         console.log(this.el.object3DMap.camera);
     },
   });
-  });
->>>>>>> 92b07a5ff6c2e21c9dc39aece4148a1c485ebf69
