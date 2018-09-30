@@ -52,9 +52,9 @@ Blockly.JavaScript['get_position'] = function(block) {
   if(dropdown_position_options === "POSX"){
     code = variable_robotvar + '.getPosition().x';
   }else if(dropdown_position_options === "POSY"){
-    code = variable_robotvar + '.getPosition().y';
-  }else if(dropdown_position_options === "POSZ"){
     code = variable_robotvar + '.getPosition().z';
+  }else if(dropdown_position_options === "POSZ"){
+    code = variable_robotvar + '.getPosition().y';
   }else{
     code = variable_robotvar + '.getPosition().theta';
   }
