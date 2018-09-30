@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <!-- Physics for A-Frame VR -->
     <link rel="stylesheet" type="text/css" href="css/main.css"></link>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="js/js-interface/jquery-3.3.1.min.js"></script>
     <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/js-interface/interfacesRobot.js" ></script>
     <script src="google-blockly/blockly_compressed.js"></script>
@@ -14,13 +14,40 @@
     <script src="js/js-interface/editor.js"></script>
     <script src="google-blockly/javascript_compressed.js"></script>
     <script src="js/js-interface/customBlocks/moveForwardBlock.js"></script>
+    <script src="js/js-interface/customBlocks/moveBackwardBlock.js"></script>
+    <script src="js/js-interface/customBlocks/initAlgorithm.js"></script>
+    <script src="js/js-interface/customBlocks/followLineBlock.js"></script>
+    <script src="js/js-interface/customBlocks/setIntervalBlock.js"></script>
+    <script src="js/js-interface/customBlocks/turnLeftBlock.js"></script>
+    <script src="js/js-interface/customBlocks/turnRightBlock.js"></script>
+    <script src="js/js-interface/customBlocks/setTimeoutBlock.js"></script>
+    <script src="js/js-interface/customBlocks/moveBlock.js"></script>
+    <script src="js/js-interface/customBlocks/startRaycastersBlock.js"></script>
+    <script src="js/js-interface/customBlocks/stopRaycastersBlock.js"></script>
+    <script src="js/js-interface/customBlocks/robotInstanceBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getLinearSpeedBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getAngularSpeedBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getLateralSpeedBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getRotationBlock.js"></script>
+    <script src="js/js-interface/customBlocks/setLateralSpeedBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getImageBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getObjectColorBlock.js"></script>
+    <script src="js/js-interface/customBlocks/consoleLogBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getDistanceBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getDistancesBlock.js"></script>
+    <script src="js/js-interface/customBlocks/getPositionBlock.js"></script>
+    <script src="js/js-interface/customBlocks/printImgCanvasBlock.js"></script>
   </head>
   <body>
+    <nav id="navbar">
+      <a href="/"><img src="./assets/resources/jderobot.svg" style="width:70px; height:70px; margin-top: 6px;" /></a>
+    </nav>
     <div id="container">
       <div id="myIFrame">
         <iframe id="websimframe" allowvr="yes" name="websim" src="/simulator.html" style="width: 100%; height:100%;" allow-same-origin allow-scripts></iframe>
       </div>
-
+      <button onclick="changeEditor()" id="changebtn">CHANGE EDITOR</button>
+      <button onclick="getCode()" id="runbtn">RUN</button>
       <div id="ace">
 // Press Ctrl-, to enter code editor configuration.
 // Write your algorithm inside next function and press RUN.
@@ -31,19 +58,50 @@ $("#scene").on('loaded', function() {
       </div>
       <div id="blockly-div">
         <xml id="toolbox" style="display: none">
-          <block type="controls_if"></block>
-          <block type="controls_repeat_ext"></block>
-          <block type="logic_compare"></block>
-          <block type="math_number"></block>
-          <block type="math_arithmetic"></block>
-          <block type="text"></block>
-          <block type="text_print"></block>
-          <block type="move_forward"></block>
+          <category name="Variables" custom="VARIABLE"></category>
+          <category name="Built-In">
+            <block type="controls_if"></block>
+            <block type="controls_repeat_ext"></block>
+            <block type="logic_compare"></block>
+            <block type="math_number"></block>
+            <block type="math_arithmetic"></block>
+            <block type="text"></block>
+            <block type="text_print"></block>
+            <block type="variables_get"></block>
+            <block type="variables_set"></block>
+          </category>
+          <category name="RobotAPI">
+            <category name="Motors">
+              <block type="move_forward"></block>
+              <block type="move_backward"></block>
+              <block type="move_combined"></block>
+              <block type="getLinearSpeed"></block>
+              <block type="getAngularSpeed"></block>
+              <block type="getLateralSpeed"></block>
+              <block type="turn_left"></block>
+              <block type="turn_right"></block>
+              <block type="set_lateral"></block>
+            </category>
+            <category name="Camera">
+              <block type="get_image"></block>
+              <block type="get_objcolor"></block>
+            </category>
+            <category name="Tools">
+              <block type="set_interval"></block>
+              <block type="set_timeout"></block>
+              <block type="logs"></block>
+              <block type="imgto_canvas"></block>
+            </category>
+            <category name="Sensors">
+              <block type="start_rays"></block>
+              <block type="stop_rays"></block>
+              <block type="get_distance"></block>
+              <block type="get_distances"></block>
+              <block type="get_position"></block>
+            </category>
           </category>
         </xml>
       </div>
-      <button onclick="changeEditor()" id="changebtn">CHANGE EDITOR</button>
-      <button onclick="getCode()" id="runbtn">RUN</button>
     </div>
   </body>
 </html>

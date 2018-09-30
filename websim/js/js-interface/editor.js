@@ -9,7 +9,14 @@ $(document).ready(function(){
   demoWorkspace = Blockly.inject('blockly-div', {
     media: 'google-blockly/media/',
     toolbox: document.getElementById('toolbox'),
-    toolboxPosition: 'end',
+    zoom:
+         {controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2},
+    trashcan: true,
     horizontalLayout: true,
     scrollbars: true
   });
@@ -28,8 +35,12 @@ function getCode(){
   var content = null;
 
   if($("#ace").css("display") === "none"){
+    var start_point = '$("#scene").on("loaded", function() {\nvar myRobot = new RobotI("a-pibot"); #aqui \n});'
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     content = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    content = start_point.replace("#aqui", content);
+
+    console.log(content);
   }else{
     content = editor.getValue();
   }
