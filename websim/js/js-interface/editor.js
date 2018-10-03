@@ -35,7 +35,7 @@ function getCode(){
   var content = null;
 
   if($("#ace").css("display") === "none"){
-    var start_point = '$("#scene").on("loaded", function() {\nvar myRobot = new RobotI("a-pibot"); #aqui \n});'
+    var start_point = '$(document).ready(function() {\nvar myRobot = new RobotI("a-pibot"); #aqui \n});'
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     content = Blockly.JavaScript.workspaceToCode(demoWorkspace);
     content = start_point.replace("#aqui", content);

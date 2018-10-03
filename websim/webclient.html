@@ -15,7 +15,6 @@
     <script src="google-blockly/javascript_compressed.js"></script>
     <script src="js/js-interface/customBlocks/moveForwardBlock.js"></script>
     <script src="js/js-interface/customBlocks/moveBackwardBlock.js"></script>
-    <script src="js/js-interface/customBlocks/initAlgorithm.js"></script>
     <script src="js/js-interface/customBlocks/followLineBlock.js"></script>
     <script src="js/js-interface/customBlocks/setIntervalBlock.js"></script>
     <script src="js/js-interface/customBlocks/turnLeftBlock.js"></script>
@@ -24,11 +23,9 @@
     <script src="js/js-interface/customBlocks/moveBlock.js"></script>
     <script src="js/js-interface/customBlocks/startRaycastersBlock.js"></script>
     <script src="js/js-interface/customBlocks/stopRaycastersBlock.js"></script>
-    <script src="js/js-interface/customBlocks/robotInstanceBlock.js"></script>
     <script src="js/js-interface/customBlocks/getLinearSpeedBlock.js"></script>
     <script src="js/js-interface/customBlocks/getAngularSpeedBlock.js"></script>
     <script src="js/js-interface/customBlocks/getLateralSpeedBlock.js"></script>
-    <script src="js/js-interface/customBlocks/getRotationBlock.js"></script>
     <script src="js/js-interface/customBlocks/setLateralSpeedBlock.js"></script>
     <script src="js/js-interface/customBlocks/getImageBlock.js"></script>
     <script src="js/js-interface/customBlocks/getObjectColorBlock.js"></script>
@@ -44,7 +41,7 @@
     </nav>
     <div id="container">
       <div id="myIFrame">
-        <iframe id="websimframe" allowvr="yes" name="websim" src="/simulator.html" style="width: 100%; height:100%;" allow-same-origin allow-scripts></iframe>
+        <iframe id="websimframe" allowvr="yes" onload name="websim" src="/simulator.html" style="width: 100%; height:100%;" allow-same-origin allow-scripts></iframe>
       </div>
       <button onclick="changeEditor()" id="changebtn">CHANGE EDITOR</button>
       <button onclick="getCode()" id="runbtn">RUN</button>
@@ -52,7 +49,7 @@
 // Press Ctrl-, to enter code editor configuration.
 // Write your algorithm inside next function and press RUN.
 // Always use this code above.
-$("#scene").on('loaded', function() {
+$(document).ready(function() {
     var myRobot = new RobotI('a-pibot');
 });
       </div>
