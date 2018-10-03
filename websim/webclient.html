@@ -13,6 +13,7 @@
     <script src="google-blockly/msg/js/es.js"></script>
     <script src="js/js-interface/editor.js"></script>
     <script src="google-blockly/javascript_compressed.js"></script>
+    <script src="google-blockly/python_compressed.js"></script>
     <script src="js/js-interface/customBlocks/moveForwardBlock.js"></script>
     <script src="js/js-interface/customBlocks/moveBackwardBlock.js"></script>
     <script src="js/js-interface/customBlocks/followLineBlock.js"></script>
@@ -45,6 +46,7 @@
       </div>
       <button onclick="changeEditor()" id="changebtn">CHANGE EDITOR</button>
       <button onclick="getCode()" id="runbtn">RUN</button>
+      <button onclick="blocklyToPython()" id="toPython">TRANSLATE TO PYTHON</button>
       <div id="ace">
 // Press Ctrl-, to enter code editor configuration.
 // Write your algorithm inside next function and press RUN.
