@@ -5,6 +5,7 @@ class RobotI
 {
     constructor(robotId){
         var self = this;
+        this.activeRays = false;
         this.raycastersArray = [];
         this.distanceArray = {
           center: [],
@@ -127,30 +128,36 @@ class RobotI
 
     startRaycasters(distance, numOfRaycasters)
     {
-      let emptyEntity = document.querySelector("#positionSensor");
-      // offsetAngle: angle between one raycaster and the next one.
-      if((numOfRaycasters % 2) == 0){
-        numOfRaycasters += 1;
-      }
-      var offsetAngle = 180 / numOfRaycasters;
-      var angle = 0;
-      var group = "center";
-      for(var i = 0; i < numOfRaycasters; i++){
-        if( (i%2) == 0 ){
-          angle = angle * -1;
-          if(i != 0){
-            group = "right";
-          }
-        }else{
-          angle = angle * -1;
-          angle += offsetAngle;
-          if(i != 0){
-            group = "left";
-          }
+      if(!this.activeRays){
+        let emptyEntity = document.querySelector("#positionSensor");
+        // offsetAngle: angle between one raycaster and the next one.
+        if((numOfRaycasters % 2) == 0){
+          numOfRaycasters += 1;
         }
-        this.createRaycaster(distance, angle, emptyEntity, group, i);
+        var offsetAngle = 180 / numOfRaycasters;
+        var angle = 0;
+        var group = "center";
+        for(var i = 0; i < numOfRaycasters; i++){
+          if( (i%2) == 0 ){
+            angle = angle * -1;
+            if(i != 0){
+              group = "right";
+            }
+          }else{
+            angle = angle * -1;
+            angle += offsetAngle;
+            if(i != 0){
+              group = "left";
+            }
+          }
+          this.createRaycaster(distance, angle, emptyEntity, group, i);
+        }
+        this.activeRays = true;
+        this.setListener();
+      }else{
+        this.activeRays = false;
+        this.stopRaycasters();
       }
-      this.setListener();
     }
 
     createRaycaster(distance, angle, emptyEntity, group, number)
@@ -318,6 +325,46 @@ class RobotI
       }
     }
 
+    readIR(reqColor)
+    {
+      var outputVal = 3;
+      var image = this.getImage();
+      var binImg = new cv.Mat();
+      var lines = new cv.Mat();
+      var colorCodes = this.getColorCode(reqColor);
+      var contours = new cv.MatVector();
+      var hierarchy = new cv.Mat();
+      let dst = new cv.Mat();
+      let M = cv.matFromArray(2, 3, cv.CV_64FC1, [1, 0, 0, 0, 1, -95]);
+      let dsize = new cv.Size(image.cols , image.rows - 95);
+      // You can try more different parameters
+      cv.warpAffine(image, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+
+      var lowTresh = new cv.Mat(dst.rows, dst.cols, dst.type(), colorCodes[0]);
+      var highTresh = new cv.Mat(dst.rows, dst.cols, dst.type(), colorCodes[1]);
+
+      cv.inRange(dst, lowTresh, highTresh, binImg);
+      cv.findContours(binImg, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
+
+      if(contours.size() > 0){
+        let stored = contours.get(0);
+        let moments = cv.moments(stored, false);
+
+        var cx = moments.m10/moments.m00;
+
+        if(isNaN(cx)){
+          outputVal = 3;
+        }else if((cx <= 150) && (cx >= 93)){
+          outputVal = 2;
+        }else if((cx >= 0) && (cx >= 57)){
+          outputVal = 1;
+        }else{
+          outputVal = 0;
+        }
+
+      }
+      return outputVal;
+    }
 }
 
 function updatePosition(rotation, velocity, robotPos){
@@ -328,4 +375,8 @@ function updatePosition(rotation, velocity, robotPos){
   robotPos.z -= z;
 
   return robotPos;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

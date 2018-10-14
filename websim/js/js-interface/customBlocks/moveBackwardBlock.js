@@ -34,3 +34,11 @@ Blockly.JavaScript['move_backward'] = function(block) {
   var code = variable_name + '.setV(-' + value_robotvar + '); \n';
   return code;
 };
+
+Blockly.Python['move_backward'] = function(block) {
+  var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var value_robotvar = Blockly.Python.valueToCode(block, 'ROBOTVAR', Blockly.Python.ORDER_ATOMIC);
+
+  var code = variable_name + '.retroceder(' + value_robotvar + ')\r\n';
+  return code;
+};

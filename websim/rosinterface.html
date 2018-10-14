@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <!--<script>
+    <script>
       try {
         window.$ = window.jQuery = require('jquery');
       } catch(e){
         console.log(e);
       }
-    </script>-->
+    </script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -20,18 +20,18 @@
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.js"></script>
     <script src="js/js-interface/spectatorComponent.js"></script>
     <script src="js/Ros/rosTeleop.js"></script>
-    <script src="js/Ice/Ice.min.js"></script>
-    <script src="js/Ice/Glacier2.min.js"></script>
-    <script src="js/Ice/motors.js"></script>
-    <script src="js/Ice/containers.js"></script>
-    <script src="js/Ice/exceptions.js"></script>
-    <script src="js/Ice/datetime.js"></script>
-    <script src="js/Ice/common.js"></script>
-    <script src="js/Ice/image.js"></script>
-    <script src="js/Ice/camera.js"></script>
-    <script src="js/aframeComponentsIce.js"></script>
-    <script src="js/Ice/iceInterfaces.js"></script>
-    <script src="js/Ice/iceTeleop.js"></script>
+    <!--<script src="js/Ice/Ice.min.js"></script>-->
+    <!--<script src="js/Ice/Glacier2.min.js"></script>-->
+    <!--<script src="js/Ice/motors.js"></script>-->
+    <!--<script src="js/Ice/containers.js"></script>-->
+    <!--<script src="js/Ice/exceptions.js"></script>-->
+    <!--<script src="js/Ice/datetime.js"></script>-->
+    <!--<script src="js/Ice/common.js"></script>-->
+    <!--<script src="js/Ice/image.js"></script>-->
+    <!--<script src="js/Ice/camera.js"></script>-->
+    <!--<script src="js/aframeComponentsIce.js"></script>-->
+    <!--<script src="js/Ice/iceInterfaces.js"></script>-->
+    <!--<script src="js/Ice/iceTeleop.js"></script>-->
     <script src="js/Ros/websim.js"></script>
   </head>
   <body>
@@ -44,10 +44,9 @@
         <td style="border-style:solid;">
           <div style="height:600px; width:800px;">
 
-            <a-scene stats embedded physics="debug: true" inspector="url: https://aframe.io/releases/0.4.0/aframe-inspector.min.js">
+            <a-scene stats background="color: gray;" embedded physics="debug: true" inspector="url: https://aframe.io/releases/0.4.0/aframe-inspector.min.js">
 
                 <a-assets>
-                    <img id="sky" src="assets/textures/sky.png">
                     <a-asset-item id="model-pibot" src="assets/models/jrobotF.dae"></a-asset-item>
                     <img id="ground" src="assets/textures/ground_text.jpg">
                 </a-assets>
@@ -68,9 +67,6 @@
                 <!-- Illumination -->
                 <a-light type="ambient" color="grey"></a-light>
                 <a-light type="point" intensity="2" position="-2 2 4"></a-light>
-
-                <!-- Sky -->
-                <a-sky src="#sky"></a-sky>
 
 
                 <a-entity id="primaryCamera" position="0 4 3.8" rotation="-45 0 0">

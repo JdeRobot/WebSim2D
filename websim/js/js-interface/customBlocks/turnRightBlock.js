@@ -31,6 +31,14 @@ Blockly.JavaScript['turn_right'] = function(block) {
   var variable_name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
   var value_robotvar = Blockly.JavaScript.valueToCode(block, 'ROBOTVAR', Blockly.JavaScript.ORDER_ATOMIC);
 
-  var code = variable_name + '.setW(-' + value_robotvar + '); \n';
+  var code = variable_name + '.setW(-' + value_robotvar + ');\r\n';
+  return code;
+};
+
+Blockly.Python['turn_right'] = function(block) {
+  var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var value_robotvar = Blockly.Python.valueToCode(block, 'ROBOTVAR', Blockly.Python.ORDER_ATOMIC);
+
+  var code = variable_name + '.girarDerecha(' + value_robotvar + ')\r\n';
   return code;
 };
