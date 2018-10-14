@@ -42,3 +42,12 @@ Blockly.JavaScript['move_combined'] = function(block) {
   var code = variable_name + '.move(' + value_linear + ',' + value_angular + '); \n';
   return code;
 };
+
+Blockly.Python['move_combined'] = function(block) {
+  var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var value_linear = Blockly.Python.valueToCode(block, 'LINEARSPEED', Blockly.Python.ORDER_ATOMIC);
+  var value_angular = Blockly.Python.valueToCode(block, 'ANGULARSPEED', Blockly.Python.ORDER_ATOMIC);
+
+  var code = "Me han dicho que me mueva a linSpeed --> " + value_linear + ' y angSpeed --> ' + value_angular + '\r\n';
+  return code;
+};

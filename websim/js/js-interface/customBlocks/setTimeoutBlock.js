@@ -33,3 +33,11 @@ Blockly.JavaScript['set_timeout'] = function(block) {
   var code = 'setTimeout(()=>{\n' + statements_text + '},' + number_name + ');\n';
   return code;
 };
+
+Blockly.Python['set_timeout'] = function(block) {
+  var number_name = parseInt(block.getFieldValue('TIME'));
+  var statements_text = Blockly.Python.statementToCode(block, 'TEXT');
+  var time_secs = number_name / 1000;
+  var code = 'time.sleep(' + time_secs + ')\n' + statements_text + "\r\n";
+  return code;
+};

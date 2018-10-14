@@ -35,7 +35,7 @@ function getCode(){
   var content = null;
 
   if($("#ace").css("display") === "none"){
-    var start_point = '$(document).ready(function() {\nvar myRobot = new RobotI("a-pibot"); #aqui \n});'
+    var start_point = '$(document).ready(execute); \nasync function execute(){\nvar myRobot = new RobotI("a-pibot"); #aqui \n}'
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     content = Blockly.JavaScript.workspaceToCode(demoWorkspace);
     content = start_point.replace("#aqui", content);
@@ -69,4 +69,20 @@ function changeEditor(){
     blocklyEditor.fadeOut("slow");
   }
 
+}
+
+function blocklyToPython(){
+  /*
+    This code gets blockly blocks, traduces it to Python
+    languaje and sends to server, the server creates a file from
+    a template and stores it on 'tmp' folder.
+  */
+  content = Blockly.Python.workspaceToCode(demoWorkspace);
+  ajaxreq.open("POST", "http://localhost:8000/python", true);
+  ajaxreq.onreadystatechange = function(evt){
+    if(ajaxreq.readyState == 4){
+      console.log("Created python file on tmp folder.")
+    }
+  };
+  ajaxreq.send(content);
 }
