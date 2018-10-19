@@ -64,21 +64,37 @@ Blockly.BlockSvg.PathObject = function() {
   this.highlightInlineSteps = [];
 };
 
+Blockly.BlockSvg.GRID_UNIT = 4;
+
 // UI constants for rendering blocks.
 /**
  * Horizontal space between elements.
  * @const
  */
-Blockly.BlockSvg.SEP_SPACE_X = 10;
+Blockly.BlockSvg.SEP_SPACE_X = 3 * Blockly.BlockSvg.GRID_UNIT;
 /**
  * Vertical space between elements.
  * @const
  */
-Blockly.BlockSvg.SEP_SPACE_Y = 10;
+Blockly.BlockSvg.SEP_SPACE_Y = 3 * Blockly.BlockSvg.GRID_UNIT;
 /**
  * Vertical padding around inline elements.
  * @const
  */
+
+ /**
+  * Height of user inputs
+  * @const
+  */
+ Blockly.BlockSvg.FIELD_HEIGHT = 8 * Blockly.BlockSvg.GRID_UNIT;
+
+ /**
+  * Width of user inputs
+  * @const
+  */
+ Blockly.BlockSvg.FIELD_WIDTH = 12 * Blockly.BlockSvg.GRID_UNIT;
+
+
 Blockly.BlockSvg.INLINE_PADDING_Y = 5;
 /**
  * Minimum height of a block.
@@ -104,7 +120,7 @@ Blockly.BlockSvg.NOTCH_WIDTH = 30;
  * Rounded corner radius.
  * @const
  */
-Blockly.BlockSvg.CORNER_RADIUS = 8;
+Blockly.BlockSvg.CORNER_RADIUS = 1;
 /**
  * Do blocks with no previous or output connections have a 'hat' on top?
  * @const

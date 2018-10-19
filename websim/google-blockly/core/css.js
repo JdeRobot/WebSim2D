@@ -30,7 +30,8 @@
  */
 goog.provide('Blockly.Css');
 
-
+Blockly.HSV_SATURATION = 0.8;
+Blockly.HSV_VALUE = 0.78;
 /**
  * List of cursors.
  * @enum {string}
@@ -165,14 +166,14 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTooltipDiv {',
-    'background-color: #ffffc7;',
+    'background-color: #92b2e5;',
     'border: 1px solid #ddc;',
-    'box-shadow: 4px 4px 20px 1px rgba(0,0,0,.15);',
+    'box-shadow: 2px 2px 20px 1px rgba(0,0,0,.15);',
     'color: #000;',
     'display: none;',
     'font-family: sans-serif;',
     'font-size: 9pt;',
-    'opacity: .9;',
+    'opacity: .7;',
     'padding: 2px;',
     'position: absolute;',
     'z-index: 100000;', /* big value for bootstrap3 compatibility */
@@ -202,12 +203,12 @@ Blockly.Css.CONTENT = [
   '.blocklyPathLight {',
     'fill: none;',
     'stroke-linecap: round;',
-    'stroke-width: 1;',
+    'stroke-width: 0px;',
   '}',
 
   '.blocklySelected>.blocklyPath {',
     'stroke: #fc3;',
-    'stroke-width: 3px;',
+    'stroke-width: 1px;',
   '}',
 
   '.blocklySelected>.blocklyPathLight {',
@@ -261,8 +262,8 @@ Blockly.Css.CONTENT = [
 
   '.blocklyDragging>.blocklyPath,',
   '.blocklyDragging>.blocklyPathLight {',
-    'fill-opacity: .8;',
-    'stroke-opacity: .8;',
+    'fill-opacity: .5;',
+    'stroke-opacity: .5;',
   '}',
 
   '.blocklyDragging>.blocklyPathDark {',
@@ -283,7 +284,7 @@ Blockly.Css.CONTENT = [
     'cursor: default;',
     'fill: #fff;',
     'font-family: sans-serif;',
-    'font-size: 11pt;',
+    'font-size: 12pt;',
   '}',
 
   '.blocklyNonEditableText>text {',
@@ -293,7 +294,7 @@ Blockly.Css.CONTENT = [
   '.blocklyNonEditableText>rect,',
   '.blocklyEditableText>rect {',
     'fill: #fff;',
-    'fill-opacity: .6;',
+    'fill-opacity: .35;',
   '}',
 
   '.blocklyNonEditableText>text,',
@@ -577,7 +578,7 @@ Blockly.Css.CONTENT = [
 
   /* Category tree in Toolbox. */
   '.blocklyToolboxDiv {',
-    'background-color: #ddd;',
+    'background-color: #d3dae5;',
     'overflow-x: visible;',
     'overflow-y: auto;',
     'position: absolute;',
@@ -590,7 +591,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTreeRoot {',
-    'padding: 4px 0;',
+    'padding: 2px 0;',
   '}',
 
   '.blocklyTreeRoot:focus {',
