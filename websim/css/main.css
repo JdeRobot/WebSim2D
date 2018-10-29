@@ -35,6 +35,10 @@ html, body{
   height: 100vh;
 }
 
+#cameras{
+  display: flex;
+}
+
 button{
   float: right;
   margin: 2px;

@@ -168,13 +168,16 @@ Now write your code using the API shown below or use Blockly blocks.
 
 To run the robot we provide a API to make it simple to execute some commands on the robot.
 
-Here i add an example of code to getting started with the robot. The code above just creates a new RobotI object, initiates 3 raycasters and move robot describing a circle.
-
+Here we add an example of code to getting started with the robot.
+The code just creates a Robot object and binds method to an AFRAME tag with id "a-pibot",
+after that executes ".move()" method that gives linear and angular speed for the robot making it moves
+describing circles.
 ~~~
   var myRobot = new RobotI('a-pibot');
-  myRobot.startRaycasters(1, 3);
   myRobot.move(0.5, 0.5);
 ~~~
+
+The robot starts camera and raycaster sensors (infrarred sensor) on initiation.
 
 Some robot interfaces are not callable, see below.
 
@@ -202,6 +205,7 @@ Some robot interfaces are not callable, see below.
 | getObjectColor(color) | Returns an object with center coordinates of an object detected with color passed as argument. | color: color of the object to detect, given colors ( red, blue, green ) | string | myRobotInstance.getObjectColor("blue") |
 | getColorCode(color) | Returns a matrix with RGB low and high filter for an specified color, not callable. | color: color to search on predefined understandedColors object | string | Not in use |
 | followLine(lineColor, speed) | Executes a predefined follow line algorithm | colorLine: color for the line to follow / speed: linear speed for the robot | string / number | myRobotInstance.followLine("white", 0.4) |
+| readIR(reqColor) | Crops robot image, filters and calculates center of object with color passed as argument. Returns 0-1-2-3 depending of center position | reqColor: color for the object to filter on image | string | myRobotInstance.readIR("white") |
 
 ### Position sensors:
 
@@ -280,6 +284,10 @@ Input value must be positive.
 
 This block is used to set lateral speed (only for humanoid robots), is equivalent to code *myRobot.setL(latSpeed)*.
 
+![Stop](/websim/docs/blocklyScreenshots/stopBlock.PNG)
+
+Thhis block is used to stop robot.
+
 ### Camera<a id="cameraBlockly"></a>
 
 ![Get image](/websim/docs/blocklyScreenshots/getImage.PNG)
@@ -290,8 +298,27 @@ This block is used to set on a variable the image from the robot camera, is equi
 ![Get object with color](/websim/docs/blocklyScreenshots/getObjectColor.PNG)
 
 This block is used to obtain center and area of the entity with color passed. Is equivalent to code *myRobot.getObjectColor("blue")*.
-The returned object has next format: {center: Array[cx, cy], area: number}.
-To extract components for the object we provide a block on tools section.
+The returned object has next format:
+~~~
+{
+  center: Array[cx, cy],
+  area: number
+}
+~~~
+We provide a dropdown to chose between cx, cy and area.
+
+
+![Read IR](/websim/docs/blocklyScreenshots/readIR.PNG)
+
+This block is used to read an object with a given color on the floor.
+The return value is a integer [0 1 2 3] depending on the center of the object filtered.
+
+| Value | Center Position |
+|-------|-----------------|
+| 0 | Pixel range 57 to 93 (center of image) |
+| 1 | Pixel range 0 to 57 (left of image) |
+| 2 | Pixel range 93 to 150 (right of image) |
+| 3 | Out of the image or object doesn't exists |
 
 
 ### Tools<a id="toolsBlockly"></a>
@@ -300,18 +327,6 @@ To extract components for the object we provide a block on tools section.
 
 This block is used to create multiple robot instances, is equivalent to code *var newRobot = new RobotI("id")*.
 This needs an AFRAME entity for the robot on the HTML file.
-
-
-![Starting point](/websim/docs/blocklyScreenshots/StartingPointBlock.PNG)
-
-Every Blockly program starts with a block named *Starting point*, this block waits until
-scene is loaded and executes the blocks contained, is the equivalent to the next code:
-
-```
-$('#scene').on('loaded', ()=>{
-  //Code
-});
-```
 
 
 ![Interval](/websim/docs/blocklyScreenshots/setInterval.PNG)
@@ -344,19 +359,14 @@ This block is used to print something in the browser console, by example you can
 This block is equivalent to code *console.log(somethingToPrint)*.
 
 
-![Extractor color object](/websim/docs/blocklyScreenshots/extractorColObj.PNG)
-
-This block is used to extract fields returned from *For ROBOT get the object with color COLOUR* block on _Camera_ category.
-
-
-![Extractor for odometry](/websim/docs/blocklyScreenshots/extractGetPos.PNG)
-
-This block is used to extract fields returned from *Get position for ROBOT* block on _Sensors_ category.
-
-
 ![Print image on canvas](/websim/docs/blocklyScreenshots/printImgCanvas.PNG)
 
 This block is used to print image returned from *Get ROBOT camera image* block on _Camera_ category.
+
+
+![Wait](/websim/docs/blocklyScreenshots/waitBlock.PNG)
+
+This block is used to stop code for some time give as input number block.
 
 
 ### Sensors
@@ -366,6 +376,7 @@ This block is used to print image returned from *Get ROBOT camera image* block o
 
 This block is used to start a given raycaster sensor with a chosed distance, is equivalent to code *myRobot.startRaycasters(1, 3)*.
 The rays detects object when it intersects with a ray and returns a distance.
+We can use it but is optional, raycasters are actived on robot load.
 
 
 ![Stop Raycasters](/websim/docs/blocklyScreenshots/stopRays.PNG)
@@ -425,6 +436,10 @@ Pibot executing follow line with Blockly: [New follow line](https://www.youtube.
 
 Pibot following objects: [Follow green box](https://www.youtube.com/watch?v=9JIZO5E3jUo)
 
+Blockly to python traduction code: [Blockly to python](https://www.youtube.com/watch?v=M3KwD8lCAi8)
+
+Websim with Gazebo: [Gazebo](https://www.youtube.com/watch?v=iouvTDALMl8)
+
 ## Tutorials
 
 Start moving robot: [Motors sensors](https://www.youtube.com/watch?v=SAeh9c8zf30)
@@ -434,6 +449,8 @@ First steps with camera: [Getting image](https://www.youtube.com/watch?v=LtEW6Ce
 Raycaster tutorial: [Hit and turn exercise](https://www.youtube.com/watch?v=VDW9FZcwA0g)
 
 Move robot with keyboard: [Connect keyboard](https://youtu.be/LlGeu95gEtk)
+
+Following a sphere using camera color filter: [Follow ball](https://www.youtube.com/watch?v=NeNvb5V90MA)
 
 ## References
 
