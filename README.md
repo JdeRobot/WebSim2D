@@ -25,12 +25,11 @@ WebSim uses different frameworks:
 - First install NodeJS, open a terminal and type the next commands:
     1. Ubuntu / Linux distributions
 
-
-    `sudo apt-get update &
+~~~
+     sudo apt-get update &
      sudo apt-get install nodejs &
-     sudo apt-get install npm`
-
-
+     sudo apt-get install npm
+~~~
 
     2. Windows: Go to the [next](https://nodejs.org/es/download/) link and click on ***Windows installer***.
 
@@ -47,12 +46,14 @@ browser and python teleoperator.
 
 
 On first terminal go to the cloned folder and move to */teleop/basic_component_py* folder, then type:
-  ```
+
+  ~~~
       python basic_component.py basic_component_py.yml
-  ```
+  ~~~
+  
 __Note__: The basic_component_py.yml need to have the following conifguration:
 
-  ```
+  ~~~
   basic_component:
     Motors:
       Server: Ros # Deactivate, Ice , Ros, Glacier
@@ -74,18 +75,18 @@ __Note__: The basic_component_py.yml need to have the following conifguration:
     NodeName: basic_component_py
     Endpoints: ws -h localhost -p 9090
 
-  ```
+  ~~~
 
 In a second terminal run:
 
- ```
+ ~~~
   roslaunch rosbrige_server rosbridge_websocket.launch
- ```
+ ~~~
 In a third terminal go to directory *websim/websim* and run:
 
-```
+~~~
   nodejs server.js
-```
+~~~
 
 Open your browser and go the URL *locahost:8000/ros*. Once done we will have a joystick to move the robot and a camera
 with the image from robot in AFRAME.
@@ -98,12 +99,12 @@ This interface is used to control robot through ICE communications messages.
 
 On first terminal, go to the *websim/teleop/basic_component_py* folder and run:
 
-```
+~~~
     python basic_component.py basic_component_py.yml
-```
+~~~
 __Note__: The basic_component_py.yml need to have the following conifguration:
 
-```
+~~~
 basic_component:
   Motors:
     Server: Glacier # Deactivate, Ice , Ros, Glacier
@@ -125,18 +126,18 @@ basic_component:
   NodeName: basic_component_py
   Endpoints: ws -h localhost -p 10000
 
-```
+~~~
 
 In a second terminal, go to the *websim/teleop* and then run:
 
- ```
+ ~~~
     glacier2router --Ice.Config=config.glacier2
- ```
+ ~~~
 In a third terminal go to directory *websim/websim* and run:
 
-```
+~~~
   nodejs server.js
-```
+~~~
 
 Now open your browser and go to the URL *localhost:8000/ice*
 
@@ -334,11 +335,11 @@ This needs an AFRAME entity for the robot on the HTML file.
 This block is used when you want to execute some code every given miliseconds, is used with other blocks like *get_image* and others.
 This is equivalent to the next code:
 
-```
+~~~~
   setInterval(function(){
     //Code
   }, intervalOnMiliseconds);
-```
+~~~~
 
 
 ![Timeout](/websim/docs/blocklyScreenshots/setTimeout.PNG)
@@ -346,11 +347,11 @@ This is equivalent to the next code:
 This block is used when you want to execute some code once after given miliseconds.
 This is equivalent to the next code:
 
-```
+~~~
   setTimeout(function(){
     //Code to execute just once
   }, intervalOnMiliseconds);
-```
+~~~
 
 
 ![Logs](/websim/docs/blocklyScreenshots/consoleLog.PNG)
@@ -472,7 +473,7 @@ A-Frame supports most VR headsets such as Vive, Rift, Windows Mixed Reality, Day
 
 A-frame can be developed from a plain HTML file without having to install anything. A great way to try out A-Frame is to remix the starter example on Glitch, an online code editor that instantly hosts and deploys for free. Alternatively, create an .html file and include A-Frame in the `<head>`:
 
-```
+~~~
 <html>
   <head>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
@@ -487,7 +488,7 @@ A-frame can be developed from a plain HTML file without having to install anythi
     </a-scene>
   </body>
 </html>
-```
+~~~
 
 As an example to learn how to use the tools and possibilities offered by the framework we added two cameras to the scene: one main camera and the other one with the robot.
 

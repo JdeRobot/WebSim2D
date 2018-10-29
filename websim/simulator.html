@@ -20,17 +20,17 @@
           <img id="ground" src="assets/textures/cheste-circuit.png" />
         </a-assets>
         <!-- Pibot, which body is the asset item with ID = model-pibot -->
-        <a-entity dynamic-body="mass: 50;" id="a-pibot" collada-model="#model-pibot" scale="20 20 20" rotation="0 -20.63 0" position="0 0.1 -7.12">
+        <a-entity dynamic-body="mass: 50;" id="a-pibot" collada-model="#model-pibot" scale="20 20 20" rotation="0 -149.63 0" position="0 0.1 0.0">
           <a-entity id="secondaryCamera" position="0 0 0" rotation="-20 -90 0">
             <!-- Create a second third-person camera which cant be controlled, the Pibot camera -->
             <a-camera position="0 0.03 -0.01" spectator="canvas:#spectatorDiv;" active="false" wasd-controls-enabled="false" look-controls-enabled="false"></a-camera>
           </a-entity>
         </a-entity>
         <a-entity id="positionSensor"></a-entity>
-        <a-box class="collidable" dynamic-body="mass:10000;" scale="1 1 9" position="7.87 0.01 -0.16" rotation="0 0 0" color="#0000ff"></a-box>
-        <!--<a-box class="collidable" dynamic-body="mass:10000;" scale="1 1 9" position="2.75 0.01 3.27" rotation="0 89 0" color="#0000ff"></a-box>-->
-        <!--<a-box class="collidable" dynamic-body="mass:10000;" scale="1 1 9" position="2.83 0.01 -3.93" rotation="0 89 0" color="#0000ff"></a-box>-->
-        <!--<a-box class="collidable" dynamic-body="mass:10000;" scale="1 1 9" position="-2.39 0.01 -0.16" rotation="0 0 0" color="#0000ff"></a-box>-->
+        <a-box class="collidable" dynamic-body="mass:1000;" scale="1 1 8" position="7.87 0.7 -0.16" rotation="0 0 0" color="#0000ff"></a-box>
+        <!--<a-box class="collidable" dynamic-body="mass:1000;" scale="1 1 8" position="2.75 0.7 3.27" rotation="0 89 0" color="#0000ff"></a-box>-->
+        <!--<a-box class="collidable" dynamic-body="mass:1000;" scale="1 1 8" position="2.83 0.7 -3.93" rotation="0 89 0" color="#0000ff"></a-box>-->
+        <!--<a-box class="collidable" dynamic-body="mass:1000;" scale="1 1 8" position="-2.0 0.7 -0.16" rotation="0 0 0" color="#0000ff"></a-box>-->
         <!-- Scenario -->
         <!--<a-sphere id="mySphere" class="collidable" dynamic-body="mass:10000;" scale="1 1 1" position="2.75 0.01 -2.27" rotation="0 90 0" color="#00ff00"></a-sphere>-->
         <a-plane static-body position="0 0 0"
@@ -51,10 +51,16 @@
 
       </a-scene>
     </div>
-    <h3>OpenCV image</h3>
-    <canvas id="outputCanvas" ></canvas>
-    <h3>Robot Camera</h3>
-    <div id="spectatorDiv" style="width: 150px; height: 100px;"></div>
+    <div id="cameras" style="display:inline-flex;">
+      <div id="cameraOpenCV" style="margin-left: 5px;">
+        <p>OpenCV image</p>
+        <canvas id="outputCanvas" ></canvas>
+      </div>
+      <div id="robotCam">
+        <p>Robot Camera</p>
+        <div id="spectatorDiv" style="width: 150px; height: 100px;"></div>
+      </div>
+    </div>
     <script type="text/javascript" src="js/js-interface/opencv3.3.1.js" ></script>
 <!--Insert here-->
   </body>

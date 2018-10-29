@@ -75,29 +75,6 @@ function handler(req, res){
       res.writeHead(200);
       res.end(data);
     });
-  }else if(req.url == "/python"){
-    var body = "";
-    req.on('data', chunk =>{
-      // Loading the request body
-      body += chunk.toString();
-    }).on('end', () =>{
-      fs.readFile(__dirname + '/tmp/MyAlgorithm-Template-2.py', (err, data) =>{
-        if(err){
-          res.writeHead(500);
-          return res.end("Error loading page");
-        }
-        body = body.replace("myRobot = None", "myRobot = PiBot.dameRobot()");
-
-        var fileStr = data.toString();
-        fileStr = fileStr.replace("# Add your code here", body);
-
-        fs.writeFileSync(__dirname + '/tmp/MyAlgorithm-TEST.py', fileStr, 'utf-8');
-        res.setHeader('Content-Type', 'text/plain');
-        res.writeHead(200);
-        res.end();
-      });
-
-    });
   }else{
     fs.readFile(__dirname + req.url, (err, data) =>{
       if(err){

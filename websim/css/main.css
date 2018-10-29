@@ -9,7 +9,7 @@ html, body{
   top: 0px;
 }
 
-#ace, #blockly-div {
+#ace {
     float: right;
     right: 0;
     width: 30%;
