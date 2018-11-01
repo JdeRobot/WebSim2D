@@ -62,11 +62,6 @@ class RobotI
         This code run continiously, setting the speed of the robot every 40ms
         This function will not be callable, use setV, setW or setL
       */
-
-      if(body != undefined){
-        console.log("LOG ---------> Setting up velocity.");
-        this.robot = body.target;
-      }
       let rotation = this.getRotation();
 
       let newpos = updatePosition(rotation, this.velocity, this.robot.body.position);
