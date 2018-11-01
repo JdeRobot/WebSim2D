@@ -8,25 +8,20 @@ $(document).ready(function(){
 
 });
 
-function getCode(){
-  /*
-    This code extracts the text from the embedded code editor and
-    creates a AJAX request to the server, then the server responses with a HTML
-    which references the new file.
-  */
-  var editor = ace.edit("ace");;
+function runCode(){
+  var editor = ace.edit("ace");
   var content = null;
+  var container = document.getElementById("scriptContainer");
 
   content = editor.getValue();
 
-  ajaxreq.open('POST', 'http://localhost:8000/myAlgorithm', true);
-  ajaxreq.onreadystatechange = function (aEvt) {
-    if (ajaxreq.readyState == 4) {
-        // Reload the iframe
-        var url = JSON.parse(ajaxreq.responseText).url;
-        $('#websimframe').attr('src', url);
-    }
-  };
-  ajaxreq.send(content);
-
+  var dynamicScript = document.getElementById("dynamicScript");
+  var newScript = document.createElement("script");
+  newScript.type = "text/javascript";
+  newScript.id = "dynamicScript";
+  newScript.text = content ;
+  if(dynamicScript != undefined){
+    container.removeChild(dynamicScript);
+  }
+  container.appendChild(newScript);
 }
