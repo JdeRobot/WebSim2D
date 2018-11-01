@@ -1,12 +1,15 @@
 // document references prueba.html document, not index.html document.
 'use strict';
+var myRobot;
 
 class RobotI
 {
     constructor(robotId){
         const defaultDistanceDetection = 10;
         const defaultNumOfRays = 31;
+
         this.myRobotID = robotId;
+        this.robot = document.getElementById(robotId);
         var self = this;
         this.activeRays = false;
         this.raycastersArray = [];
@@ -22,9 +25,7 @@ class RobotI
           white: {low: [230, 230, 230, 0], high: [255, 255, 255, 255]}
         };
         this.velocity = {x:0, y:0, z:0, ax:0, ay:0, az:0};
-        this.robot = document.getElementById(robotId);
-
-        this.setVelocity(self.robot);
+        this.robot.addEventListener('body-loaded', this.setVelocity.bind(self));
         this.startCamera();
         this.startRaycasters(defaultDistanceDetection, defaultNumOfRays);
     }
@@ -62,11 +63,10 @@ class RobotI
         This function will not be callable, use setV, setW or setL
       */
 
-      /*if(body != undefined){
-        console.log("LOG ---------> Setting up velocity.")
-        this.robot = body.originalTarget;
-        console.log("Este es el body: ", this.robot);
-      }*/
+      if(body != undefined){
+        console.log("LOG ---------> Setting up velocity.");
+        this.robot = body.target;
+      }
       let rotation = this.getRotation();
 
       let newpos = updatePosition(rotation, this.velocity, this.robot.body.position);
@@ -97,6 +97,7 @@ class RobotI
     {
         clearTimeout(this.timeoutCamera);
         clearTimeout(this.timeoutMotors);
+        clearInterval(this.followLineInterval);
         this.velocity = {x:0, y:0, z:0, ax:0, ay:0, az:0};
         this.setVelocity();
         this.robot.body.position.set(0,0,0);
@@ -423,25 +424,27 @@ class RobotI
       }
     }
 
-    followLine(lowval, highval, speed)
+    followLine(lowval, highval, speed, interval = 100)
     /*
       This function is a simple implementation of follow line algorithm, the robot filters an object with
       a given color and follows it.
     */
     {
-      var data = this.getObjectColorRGB(lowval, highval); // Filters image
+      this.followLineInterval = setInterval(()=>{
+        var data = this.getObjectColorRGB(lowval, highval); // Filters image
 
-      this.setV(speed);
-      if(data.center[0] >= 75 && data.center[0] < 95){
-          this.setW(-0.2);
+        this.setV(speed);
+        if(data.center[0] >= 75 && data.center[0] < 95){
+            this.setW(-0.2);
 
-      }else if(data.center[0] <= 75 && data.center[0] >= 55){
-          this.setW(0.2);
-      }else if(data.center[0] >= 95){
-          this.setW(-0.35);
-      }else if(data.center[0] <= 55){
-          this.setW(0.35)
-      }
+          }else if(data.center[0] <= 75 && data.center[0] >= 55){
+            this.setW(0.2);
+          }else if(data.center[0] >= 95){
+            this.setW(-0.35);
+          }else if(data.center[0] <= 55){
+            this.setW(0.35)
+          }
+        }, interval);
     }
 
     readIR(reqColor)
@@ -506,8 +509,9 @@ function updatePosition(rotation, velocity, robotPos){
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-var myRobot;
+
 $(document).ready(()=>{
+  sleep(1000)
   myRobot = new RobotI('a-pibot');
   console.log("Robot instance created with variable name <myRobot>:", myRobot);
 });
