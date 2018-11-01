@@ -59,21 +59,12 @@
             <a-camera></a-camera>
           </a-entity>
         </a-scene>
-        <div id="cameras" style="display:inline-flex;">
-          <div id="cameraOpenCV" style="margin-left: 5px;">
-            <p>OpenCV image</p>
-            <canvas id="outputCanvas" ></canvas>
-          </div>
-          <div id="robotCam">
-            <p>Robot Camera</p>
-            <div id="spectatorDiv" style="width: 150px; height: 100px;"></div>
-          </div>
-        </div>
         <script type="text/javascript" src="js/opencv3.3.1.js" ></script>
       </div>
       <div id="scriptContainer"></div>
       <button onclick="runCode()" id="runbtn">RUN</button>
-      <div id="ace">
+      <div id="right-container">
+        <div id="ace">
 // Press Ctrl-, to enter code editor configuration.
 /*
 A global variable called myRobot that
@@ -88,6 +79,17 @@ var intervalo = setInterval(()=>{
   var img = myRobot.getImage();
 }, 33);
 
+        </div>
+        <div id="cameras" style="display:inline-flex;">
+          <div id="cameraOpenCV" style="margin-left: 5px;">
+            <p>OpenCV image</p>
+            <canvas id="outputCanvas" ></canvas>
+          </div>
+          <div id="robotCam">
+            <p>Robot Camera</p>
+            <div id="spectatorDiv" style="width: 150px; height: 100px;"></div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
