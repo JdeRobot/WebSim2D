@@ -9,7 +9,11 @@ html, body{
   top: 0px;
 }
 
+<<<<<<< HEAD
 #ace{
+=======
+#ace, #blockly-div {
+>>>>>>> 5dd890d34c5fe7b50155b6158274d30d4f0f886f
     float: right;
     right: 0;
     width: 100%;
