@@ -9,7 +9,7 @@ html, body{
   top: 0px;
 }
 
-#ace {
+#ace{
     float: right;
     right: 0;
     width: 100%;
@@ -45,7 +45,47 @@ html, body{
   display: flex;
 }
 
-button{
+#runbtn {
+    background-color: #e6e6e6;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+#runbtn:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#stopbtn {
+    background-color: #e6e6e6;
+    color: black;
+    border: 2px solid #f44336;
+}
+
+#stopbtn:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+#nav-button-container{
+  margin-top: auto;
+  margin-bottom: auto;
   float: right;
-  margin: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+  height: 100%;
+}
+
+button {
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.1s;
+    cursor: pointer;
 }
