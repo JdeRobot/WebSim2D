@@ -25,10 +25,15 @@ class RobotI
           white: {low: [230, 230, 230, 0], high: [255, 255, 255, 255]}
         };
         this.velocity = {x:0, y:0, z:0, ax:0, ay:0, az:0};
-        this.robot.addEventListener('body-loaded', this.setVelocity.bind(self));
+        this.robot.addEventListener('body-loaded', this.motorsStarter.bind(self));
         this.startCamera();
         this.startRaycasters(defaultDistanceDetection, defaultNumOfRays);
     }
+    motorsStarter(body){
+      console.log("LOG ---------> Starting motors");
+      this.setVelocity(this);
+    }
+
     getRotation(){
       /*
         Returns an object with rotation properties.
@@ -62,6 +67,11 @@ class RobotI
         This code run continiously, setting the speed of the robot every 40ms
         This function will not be callable, use setV, setW or setL
       */
+
+      if(body != undefined){
+        this.robot = body.robot;
+      }
+
       let rotation = this.getRotation();
 
       let newpos = updatePosition(rotation, this.velocity, this.robot.body.position);
@@ -71,18 +81,12 @@ class RobotI
       this.timeoutMotors = setTimeout(this.setVelocity.bind(this), 30);
     }
 
-    setCameraDescription(data /* , current */)
-    {
-        console.log("setCameraDescription: "+ data);
-    }
-
     getCameraDescription()
+    /*
+      Returns width and height for the robot camera.
+    */
     {
-        return 1;
-    }
-    stopCameraStreaming()
-    {
-        return 1;
+        return {width: this.canvas2d.width, height: this.canvas2d.height};
     }
 
     clearAll()
@@ -90,13 +94,12 @@ class RobotI
       Resets all states of the robot.
     */
     {
-        clearTimeout(this.timeoutCamera);
-        clearTimeout(this.timeoutMotors);
-        clearInterval(this.followLineInterval);
+        clearTimeout(this.timeoutCamera); // Clear camera timeouts (stops camera)
+        clearTimeout(this.timeoutMotors); // Clear motors timeouts (stops motors)
+        clearInterval(this.followLineInterval); // Clears followLine intervals
         this.velocity = {x:0, y:0, z:0, ax:0, ay:0, az:0};
         this.setVelocity();
-        this.robot.body.position.set(0,0,0);
-        return 1;
+        this.robot.body.position.set(0, 0, 0);
     }
 
     getImageDescription()
@@ -196,10 +199,10 @@ class RobotI
       newRaycaster.setAttribute('raycaster', 'far', distance);
       newRaycaster.setAttribute('raycaster', 'showLine', true);
       newRaycaster.setAttribute('raycaster', 'direction', "1 0 0");
-      newRaycaster.setAttribute('raycaster', 'interval', 70);
+      newRaycaster.setAttribute('raycaster', 'interval', 100);
       newRaycaster.setAttribute('raycaster', 'enabled', true);
       newRaycaster.setAttribute('line', 'color', "#ffffff");
-      newRaycaster.setAttribute('line', 'opacity', 0.1);
+      newRaycaster.setAttribute('line', 'opacity', 0);
       newRaycaster.setAttribute('line', 'end', "1 0 0");
       newRaycaster.setAttribute('follow-body', 'entityId', '#' + this.myRobotID);
       newRaycaster.setAttribute('follow-body',"offsetRotation", "0 " + angle + " 0");
