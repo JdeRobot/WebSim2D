@@ -20,6 +20,10 @@
   <body>
     <nav id="navbar">
       <a href="/index.html"><img src="assets/resources/jderobot.svg" style="width:70px; height:70px; margin-top: 6px;" /></a>
+      <div id="nav-button-container">
+        <button onclick="runCode()" id="runbtn">RUN</button>
+        <button onclick="stopCode()" id="stopbtn">STOP</button>
+      </div>
     </nav>
     <div id="container">
       <div id="myIFrame">
@@ -62,7 +66,6 @@
         <script type="text/javascript" src="js/js-interface/opencv3.3.1.js" ></script>
       </div>
       <div id="scriptContainer"></div>
-      <button onclick="runCode()" id="runbtn">RUN</button>
       <div id="right-container">
         <div id="ace">
 // Press Ctrl-, to enter code editor configuration.
@@ -75,9 +78,11 @@ shown in https://github.com/JdeRobot/WebSim/blob/master/README.md
 Example:
   myRobot.move(0.2, 0.2);
 */
-var intervalo = setInterval(()=>{
-  var img = myRobot.getImage();
-}, 33);
+mainInterval = setInterval(myAlgorithm, 33);
+
+async function myAlgorithm(){
+  // Insert code here
+}
 
         </div>
         <div id="cameras" style="display:inline-flex;">
