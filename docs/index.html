@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <!-- Physics for A-Frame VR -->
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="js/aframe-physics-system.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css"></link>
-    <!--<script src="js/js-interface/jquery-3.3.1.min.js"></script>-->
+    <!--<script src="js/jquery-3.3.1.min.js"></script>-->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/interfacesRobot.js" ></script>
@@ -19,7 +19,11 @@
   </head>
   <body>
     <nav id="navbar">
-      <a href="/ghpages"><img src="assets/resources/jderobot.svg" style="width:70px; height:70px; margin-top: 6px;" /></a>
+      <a href="/index.html"><img src="assets/resources/jderobot.svg" style="width:70px; height:70px; margin-top: 6px;" /></a>
+      <div id="nav-button-container">
+        <button onclick="runCode()" id="runbtn">RUN</button>
+        <button onclick="stopCode()" id="stopbtn">STOP</button>
+      </div>
     </nav>
     <div id="container">
       <div id="myIFrame">
@@ -62,7 +66,6 @@
         <script type="text/javascript" src="js/opencv3.3.1.js" ></script>
       </div>
       <div id="scriptContainer"></div>
-      <button onclick="runCode()" id="runbtn">RUN</button>
       <div id="right-container">
         <div id="ace">
 // Press Ctrl-, to enter code editor configuration.
@@ -75,9 +78,11 @@ shown in https://github.com/JdeRobot/WebSim/blob/master/README.md
 Example:
   myRobot.move(0.2, 0.2);
 */
-var intervalo = setInterval(()=>{
-  var img = myRobot.getImage();
-}, 33);
+mainInterval = setInterval(myAlgorithm, 33);
+
+async function myAlgorithm(){
+  // Insert code here
+}
 
         </div>
         <div id="cameras" style="display:inline-flex;">
