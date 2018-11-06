@@ -9,7 +9,7 @@ html, body{
   top: 0px;
 }
 
-#ace {
+#ace{
     float: right;
     right: 0;
     width: 100%;
@@ -56,16 +56,6 @@ html, body{
     color: white;
 }
 
-#stopbtn {
-    background-color: #e6e6e6;
-    color: black;
-    border: 2px solid #f44336;
-}
-
-#stopbtn:hover {
-    background-color: #f44336;
-    color: white;
-}
 
 #nav-button-container{
   margin-top: auto;

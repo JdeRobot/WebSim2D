@@ -1,7 +1,6 @@
-var ajaxreq = new XMLHttpRequest();
 var demoWorkspace ="";
 var mainInterval;
-var runningCode = false;
+var play = false;
 
 $(document).ready(function(){
   var editor = ace.edit("ace");
@@ -14,29 +13,16 @@ function runCode(){
 
   var editor = ace.edit("ace");
   var content = null;
-  var container = document.getElementById("scriptContainer");
 
-  if($("#ace").css("display") === "none"){
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    content = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+  content = editor.getValue();
 
-  }else{
-    content = editor.getValue();
-  }
-
-  if(!runningCode){
+  if(!play){
     eval(content);
-    runningCode = true;
+    play = true;
   }else{
-    console.log("Code already running, stop it first");
+    clearInterval(mainInterval);
+    myRobot.move(0,0);
+    play = false;
+    console.log("Execution stopped.")
   }
-}
-
-function stopCode(){
-/*
-  This function stops the code and the robot.
-*/
-  clearInterval(mainInterval);
-  myRobot.move(0,0);
-  runningCode = false;
 }
