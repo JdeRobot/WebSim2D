@@ -1,6 +1,14 @@
 // document references prueba.html document, not index.html document.
 'use strict';
 var myRobot;
+document.addEventListener('body-loaded', (bodyLoaded)=>{
+
+  if(bodyLoaded.target.id == "a-pibot"){
+    console.log("------Robot body loaded, creating myRobot instance------")
+    myRobot = new RobotI('a-pibot');
+
+  }
+});
 
 class RobotI
 {
@@ -10,7 +18,6 @@ class RobotI
 
         this.myRobotID = robotId;
         this.robot = document.getElementById(robotId);
-        var self = this;
         this.activeRays = false;
         this.raycastersArray = [];
         this.distanceArray = {
@@ -25,13 +32,16 @@ class RobotI
           white: {low: [230, 230, 230, 0], high: [255, 255, 255, 255]}
         };
         this.velocity = {x:0, y:0, z:0, ax:0, ay:0, az:0};
-        this.robot.addEventListener('body-loaded', this.motorsStarter.bind(self));
+        this.motorsStarter(this.robot);
         this.startCamera();
         this.startRaycasters(defaultDistanceDetection, defaultNumOfRays);
     }
-    motorsStarter(body){
-      console.log("LOG ---------> Starting motors");
-      this.setVelocity(this);
+    motorsStarter(robot){
+      /*
+        This function starts motors passing the robot
+      */
+      console.log("LOG ---------------- Setting up motors.")
+      this.setVelocity(robot);
     }
 
     getRotation(){
@@ -69,7 +79,7 @@ class RobotI
       */
 
       if(body != undefined){
-        this.robot = body.robot;
+        this.robot = body;
       }
 
       let rotation = this.getRotation();
@@ -428,21 +438,19 @@ class RobotI
       a given color and follows it.
     */
     {
-      this.followLineInterval = setInterval(()=>{
-        var data = this.getObjectColorRGB(lowval, highval); // Filters image
+      var data = this.getObjectColorRGB(lowval, highval); // Filters image
 
         this.setV(speed);
-        if(data.center[0] >= 75 && data.center[0] < 95){
-            this.setW(-0.2);
 
-          }else if(data.center[0] <= 75 && data.center[0] >= 55){
-            this.setW(0.2);
-          }else if(data.center[0] >= 95){
-            this.setW(-0.35);
-          }else if(data.center[0] <= 55){
-            this.setW(0.35)
-          }
-        }, interval);
+        if(data.center[0] >= 75 && data.center[0] < 95){
+          this.setW(-0.2);
+        }else if(data.center[0] <= 75 && data.center[0] >= 55){
+          this.setW(0.2);
+        }else if(data.center[0] >= 95){
+          this.setW(-0.35);
+        }else if(data.center[0] <= 55){
+          this.setW(0.35)
+        }
     }
 
     readIR(reqColor)
@@ -507,9 +515,3 @@ function updatePosition(rotation, velocity, robotPos){
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-$(document).ready(()=>{
-  sleep(1000)
-  myRobot = new RobotI('a-pibot');
-  console.log("Robot instance created with variable name <myRobot>:", myRobot);
-});
