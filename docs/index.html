@@ -4,25 +4,17 @@
     <title>WebSim - Alvaro Paniagua Tena</title>
     <meta charset="utf-8" />
     <!-- Physics for A-Frame VR -->
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css"></link>
-    <!--<script src="js/jquery-3.3.1.min.js"></script>-->
-    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/interfacesRobot.js" ></script>
-    <script src="js/editor.js"></script>
-    <script src="js/spectatorComponent.js"></script>
-    <script src="js/followBodyComponent.js"></script>
-    <script src="js/intersectionHandlerComponent.js"></script>
-
+    <script src="js/websim.bundle.js"></script>
+    <script src="js/editor.bundle.js"></script>
   </head>
   <body>
     <nav id="navbar">
       <a href="/index.html"><img src="assets/resources/jderobot.svg" style="width:70px; height:70px; margin-top: 6px;" /></a>
       <div id="nav-button-container">
-        <button onclick="runCode()" id="runbtn">RUN</button>
-        <button onclick="stopCode()" id="stopbtn">STOP</button>
+        <button onclick id="runbtn"><img src="assets/resources/play-icon.png" /></button>
+        <button onclick id="cambtn"><img src="assets/resources/play-camera-icon.png" /></button>
       </div>
     </nav>
     <div id="container">
