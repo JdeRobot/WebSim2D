@@ -1,18 +1,41 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const url = require('url');
+global.sharedObject = process.argv
+server = global.sharedObject[2];
+
+// Get document, or throw exception on error
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
-
+var html = "";
+var width = 0;
+var height = 0;
+if (server == "/ice") {
+	html = "iceinterface.html";
+        width = 900;
+        height = 600;
+} else if (server == "/ros") {
+	html = "rosinterface.html";
+        width = 900;
+        height = 600;
+} else if (server == "/"){
+	html = "index.html"
+        width = 1800;
+        height = 1080;
+} else {
+	html = "error.html";
+        width = 1800;
+        height = 1080;
+}
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 1800, height: 1080});
+  win = new BrowserWindow({width: width, height: height});
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'rosinterface.html'),
+    pathname: path.join(__dirname, html),
     protocol: 'file:',
     slashes: true
   }));

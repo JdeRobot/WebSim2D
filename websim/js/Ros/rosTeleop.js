@@ -67,8 +67,24 @@ function initRos(){
   },1);
 }
 
+function updatePosition(rotation, velocity, robotPos){
+  let x = (velocity.x/10) * Math.cos(rotation.y * Math.PI/180);
+  let z = (velocity.x/10) * Math.sin(rotation.y * Math.PI/180);
+
+  robotPos.x += x;
+  robotPos.z -= z;
+
+  return robotPos;
+}
+
 function move(){
   var robot = document.querySelector('#a-pibot');
-  robot.body.velocity.set(vx, vy, vz);
+  let rotation = robot.getAttribute('rotation');
+  var velocity = {}
+  velocity.x = vx;
+  velocity.y = vy;
+  velocity.z = vz;
+  let newpos = updatePosition(rotation, velocity, robot.body.position);
+  robot.body.position.set(newpos.x, newpos.y, newpos.z);
   robot.body.angularVelocity.set(wx, wy, wz);
 }

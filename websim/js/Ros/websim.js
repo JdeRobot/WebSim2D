@@ -6,7 +6,7 @@ $(document).ready(function() {
 			config = yaml.safeLoad(fs.readFileSync('config.yml', 'utf8'))
 		} catch (e) {
 			config.server = "Ros";
-			config.port = "10000";
+			config.port = "9090";
   		config.address = "localhost";
   		config.topicM = "/turtlebotROS/mobile_base/commands/velocity";
   		config.topicI = '/turtlebotROS/cameraL/image_raw';

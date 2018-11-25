@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style ="height:98%;width:99%;">
   <head>
     <meta charset="utf-8">
     <script>
@@ -18,32 +18,12 @@
   	<script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
     <!-- Physics for A-Frame VR -->
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.js"></script>
-    <script src="js/js-interface/spectatorComponent.js"></script>
+    <script src="js/spectatorComponentTeleop.js"></script>
     <script src="js/Ros/rosTeleop.js"></script>
-    <!--<script src="js/Ice/Ice.min.js"></script>-->
-    <!--<script src="js/Ice/Glacier2.min.js"></script>-->
-    <!--<script src="js/Ice/motors.js"></script>-->
-    <!--<script src="js/Ice/containers.js"></script>-->
-    <!--<script src="js/Ice/exceptions.js"></script>-->
-    <!--<script src="js/Ice/datetime.js"></script>-->
-    <!--<script src="js/Ice/common.js"></script>-->
-    <!--<script src="js/Ice/image.js"></script>-->
-    <!--<script src="js/Ice/camera.js"></script>-->
-    <!--<script src="js/aframeComponentsIce.js"></script>-->
-    <!--<script src="js/Ice/iceInterfaces.js"></script>-->
-    <!--<script src="js/Ice/iceTeleop.js"></script>-->
     <script src="js/Ros/websim.js"></script>
   </head>
-  <body>
-    <table style="border-style:solid;">
-      <tr>
-        <th><h1>Scene</h1></th>
-        <th><h1>Camera Robot</h1></th>
-      </tr>
-      <tr>
-        <td style="border-style:solid;">
-          <div style="height:600px; width:800px;">
-
+  <body style ="height:100%;width:100%;">
+          <div style="height:100%; width:100%;">
             <a-scene stats background="color: gray;" embedded physics="debug: true" inspector="url: https://aframe.io/releases/0.4.0/aframe-inspector.min.js">
 
                 <a-assets>
@@ -76,11 +56,6 @@
             </a-scene>
 
           </div>
-        </td>
-        <td style="border-style:solid;">
           <div id="spectatorDiv" style="height:300px; width:400px;"></div>
-        </td>
-      </tr>
-    </table>
   </body>
 </html>

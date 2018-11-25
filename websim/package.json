@@ -2,11 +2,12 @@
   "name": "WebSim",
   "version": "1.0.0",
   "description": "Simulador web con tecnología AFRAME que consta de un editor de código embebido para mover un robot simulado gráficamente.",
-  "main": "server.js",
+  "main": "run.js",
   "scripts": {
     "build": "webpack --watch --colors",
     "start": "webpack-dev-server --progress --colors",
-    "prod": "webpack -p --watch --colors"
+    "prod": "webpack -p --watch --colors",
+    "test": "electron main.js"
   },
   "author": "Alvaro Paniagua Tena",
   "license": "ISC",
@@ -22,6 +23,9 @@
     "@babel/core": "^7.1.5",
     "aframe": "^0.8.2",
     "aframe-physics-system": "^3.2.0",
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "js-yaml": "^3.12.0",
+    "require": "^2.4.20",
+    "electron": "^1.7.10"
   }
 }

@@ -1,6 +1,6 @@
-server: "Ros" #Ros or Ice
+server: "Ice" #Ros or Ice
 address: "localhost"
-port: "9090"
+port: "10000"
 topicM: "/turtlebotROS/mobile_base/commands/velocity"
 topicI: '/turtlebotROS/cameraL/image_raw'
 endpointM: "setMotors"
