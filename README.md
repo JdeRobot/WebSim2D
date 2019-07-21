@@ -37,9 +37,9 @@ The robot can be teleoperated through the keyboard using the letters "a" and "d"
 ## API
 
 To set the velocity values:
-  - myRobot.setV (v). v is the value of the linear velocity
+  - myRobot.setV(v). v is the value of the linear velocity
 
-  - myRobot.setW (w). w is the value of the angular velocity.
+  - myRobot.setW(w). w is the value of the angular velocity.
 
 To get the current velocity values:
   - v = myRobot.getV()
