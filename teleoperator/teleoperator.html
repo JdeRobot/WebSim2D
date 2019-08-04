@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" type="text/css" href="../teleoperator/css/teleoperators.css"></link>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #d3d3d3;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<script src = "../simcore/interfacesRobot.js"></script>
+<script src = "../teleoperator/js/teleoperator.js"></script>
+<body onload = "startScene()">
+  <nav id="navbar">
+    <img src="../assets/resources/jderobot.svg" alt="JdeRobot logo" style="width:70px; height:70px; margin-top: 6px;" />
+  </nav>
+  <div id="container">
+    <div id="myIFrame">
+    </div>
+    <div id="scriptContainer"></div>
+    <div id="right-container">
+      <div class="buttons">
+        <div id="upArrow">
+            <button onclick class="buttonArrow" id="invisible"><img class="buttonArrow" src="../assets/resources/speed.svg" /></button>
+            <button onclick = "right()" class="buttonArrow" id="right"><img class="buttonArrow" src="../assets/resources/speed.svg" /></button>
+        </div>
+        <div id="bottomArrows">
+            <button onclick ="brake()" class="buttonArrow" id="brake" ><img class="buttonArrow" src="../assets/resources/left.svg"/></button>
+            <button onclick="left()" class="buttonArrow" id="left"><img class="buttonArrow" src="../assets/resources/brake.svg"/></button>
+            <button onclick="speed()" class="buttonArrow" id="speed"><img class="buttonArrow" src="../assets/resources/right.svg"/></button><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

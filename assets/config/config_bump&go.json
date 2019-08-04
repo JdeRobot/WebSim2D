@@ -1,0 +1,83 @@
+{
+  "robot": {
+    "model":"../assets/models/jrobotFgltf.gltf",
+    "scale": "40 40 40",
+    "position":"15 1 10",
+    "rotation": "0 180 0"
+  },
+  "gravity": -9.8,
+  "ground": "../assets/textures/bump&go.png",
+  "sky": "../assets/textures/sky.png",
+  "secondaryCamera": "0 0 0",
+  "cameraRobot":"0 0.03 -0.01",
+  "objects":[
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/wallBack.gltf",
+      "class": "collidable",
+      "scale": "6 6 6",
+      "position": "0 0 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/wallSmall.gltf",
+      "class": "collidable",
+      "scale": "6.1 3 6",
+      "position": "-0.5 -1 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/wallLeft.gltf",
+      "class": "collidable",
+      "scale": "6 6 6",
+      "position": "0 0 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/wallRight.gltf",
+      "class": "collidable",
+      "scale": "6 6 6",
+      "position": "0 0 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/table1.gltf",
+      "class": "collidable",
+      "scale": "6 6 6",
+      "position": "0 -1 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/table2.gltf",
+      "scale": "6 6 6",
+      "class": "collidable",
+      "position": "0 -2 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/wall1.gltf",
+      "scale": "6 6 6",
+      "class": "collidable",
+      "position": "0 0 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/wall2.gltf",
+      "scale": "6 6 6",
+      "class": "collidable",
+      "position": "0 0 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/couch.gltf",
+      "scale": "6 6 6",
+      "class": "collidable",
+      "position": "0 -2 0"
+      },
+      {
+      "type": "a-gltf-model",
+      "src": "../assets/models/room/tv.gltf",
+      "scale": "6 6 6",
+      "position": "0 0 0"
+      }]
+}
