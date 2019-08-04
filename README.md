@@ -32,7 +32,8 @@ Open your web browser and write this URL; ***localhost:8000/***, for base WebSim
 
 ## Teleoperator
 
-The robot can be teleoperated using the arrows to the right of WebSim2D.
+The robot can be teleoperated using the arrows to the right of WebSim2D. The following video shows the teleoperator running:
+https://www.youtube.com/watch?v=cetckZfJEsQ
 
 ## API
 
