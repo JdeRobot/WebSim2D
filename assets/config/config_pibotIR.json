@@ -1,0 +1,14 @@
+{
+  "robot": {
+    "model":"../assets/models/jrobotFgltf.gltf",
+    "scale": "20 20 20",
+    "position":"12 0 25",
+    "rotation": "0 50 0"
+  },
+  "gravity": -9.8,
+  "ground": "../assets/textures/interlagosIR.png",
+  "sky": "../assets/textures/sky.png",
+  "secondaryCamera": "0 0 0",
+  "cameraRobot":"0 0.03 -0.01",
+  "objects":[]
+}

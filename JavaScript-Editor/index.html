@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" type="text/css" href="../JavaScript-Editor/css/main.css"></link>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #d3d3d3;
+}
+</style>
+<script src = "../simcore/interfacesRobot.js"></script>
+<script src="../JavaScript-Editor/js/ace-editor/ace.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body onload="startScene()">
+  <nav id="navbar">
+    <a href="/index.html" ><img src="../assets/resources/jderobot.svg" alt="JdeRobot logo" style="width:70px; height:70px; margin-top: 6px;" /></a>
+    <div id="nav-button-container">
+      <button onclick id="resetRobot"><img src="../assets/resources/reset.png" alt="Reset button image"/></button>
+      <button onclick id="runbtn"><img src="../assets/resources/play-icon.png" alt="Run button image"/></button>
+      <button onclick id="cambtn"><img src="../assets/resources/play-camera-icon.png" alt="Stop button image"/></button>
+    </div>
+  </nav>
+  <div id="container">
+    <div id="myIFrame">
+    </div>
+    <div id="scriptContainer"></div>
+    <div id="right-container">
+      <div id="ace">
+      // Press Ctrl-, to enter code editor configuration.
+
+
+      /*
+      Example:
+      myRobot.setW(1);
+      */
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

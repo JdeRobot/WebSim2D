@@ -1,0 +1,14 @@
+{
+  "robot": {
+    "model":"../assets/models/drone.gltf",
+    "scale": "0.5 0.5 0.5",
+    "position":"12 1 25",
+    "rotation": "0 50 0"
+  },
+  "gravity": 0,
+  "ground": "../assets/textures/escenarioDrone.png",
+  "sky": "../assets/textures/sky.png",
+  "secondaryCamera": "12 1 25",
+  "cameraRobot":"0 0.03 -0.01",
+  "objects":[]
+}
