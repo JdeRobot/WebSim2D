@@ -32,7 +32,7 @@ Open your web browser and write this URL; ***localhost:8000/***, for base WebSim
 
 ## Teleoperator
 
-The robot can be teleoperated through the keyboard using the letters "a" and "d", for the linear velocity, and "w" and "s", for the angular velocity.
+The robot can be teleoperated using the arrows to the right of WebSim2D.
 
 ## API
 
