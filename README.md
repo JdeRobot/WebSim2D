@@ -50,3 +50,9 @@ To get the current velocity values:
 To clear the velocity values:
 
   - myRobot.clearVelocity()
+  
+To Infrared Sensor:
+
+  - ir = myRobot.getInfrared()*
+  
+*The function returns three arrays of RGB data. The first corresponds to the front IR sensor, the second to the left sensor and the third to the right (ir.Front, ir.Left, ir.Right)
