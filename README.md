@@ -37,21 +37,23 @@ https://www.youtube.com/watch?v=cetckZfJEsQ
 
 ## API
 
-To set the velocity values:
+***To set the velocity values:***
+
   - myRobot.setV(v). v is the value of the linear velocity
 
   - myRobot.setW(w). w is the value of the angular velocity.
 
-To get the current velocity values:
+***To get the current velocity values:***
+
   - v = myRobot.getV()
 
   - w = myRobot.getW()
 
-To clear the velocity values:
+***To clear the velocity values:***
 
   - myRobot.clearVelocity()
   
-To Infrared Sensor:
+***To Infrared Sensor:***
 
   - ir = myRobot.getInfrared()*
   
