@@ -1,12 +1,12 @@
 
-export function setupACE(){
+function setupACE(){
   var editor = ace.edit("ace");
   editor.setTheme("ace/theme/monokai");
   editor.session.setMode("ace/mode/javascript");
   return editor;
 }
 
-export function toggleCameraDisplay(){
+function toggleCameraDisplay(){
     var opencvCam = document.querySelector("#outputCanvas");
     var imageCamBtn = document.querySelector("#cambtn").firstChild;
     $("#outputCanvas, #spectatorDiv").toggle();
@@ -17,18 +17,18 @@ export function toggleCameraDisplay(){
     }
 }
 
-export function getCode(editor){
+function getCode(editor){
   var content = editor.getValue();
 
   return content;
 }
 
-export function insertCode(textToInject, editor){
+function insertCode(textToInject, editor){
   // Reloads the code inside the editor erasing all content
   editor.setValue(textToInject);
   return editor;
 }
 
-export function reset(){
-  
+function reset(){
+
 }

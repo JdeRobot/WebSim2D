@@ -1,6 +1,7 @@
-import {setupACE, toggleCameraDisplay, getCode, insertCode, reset} from './editor-methods.js'
+
 
 var editor = null
+
 
 $(document).ready(()=>{
   editor = setupACE();
@@ -11,11 +12,14 @@ $(document).ready(()=>{
 
   $("#runbtn").click(()=>{
     var codeString = getCode(editor);
+    console.log(codeString);
     var websimevent = new CustomEvent('code-to-run', {
       'detail': {
         'code': codeString
       }
     });
+
+    console.log(websimevent);
     document.dispatchEvent(websimevent);
   });
 
@@ -26,5 +30,3 @@ $(document).ready(()=>{
     document.dispatchEvent(resetEvent);
   });
 });
-
-
