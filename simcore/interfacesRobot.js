@@ -2,7 +2,7 @@
 var myRobot;
 
 var fondo = new Image();
-fondo.src = "../assets/textures/circuit.png";
+fondo.src = "../assets/resources/follow_line.png";
 
 var myScene= {
     canvas : document.createElement("canvas"),
@@ -34,7 +34,7 @@ function startScene(){
   var cs = getComputedStyle(div);
   var width = parseInt(cs.getPropertyValue('width'), 10);
   var height = parseInt(cs.getPropertyValue('height'), 10);
-  myRobot = new RobotI(100, 100, "../assets/models/turtle.png", 300,650, "image");
+  myRobot = new RobotI(100, 100, "../assets/models/turtle.png", 50,140, "image");
   myScene.start();
 }
 
@@ -57,8 +57,11 @@ function RobotI(width, height, color, x, y, type) {
     this.yInfraredF = this.y;
     this.update = function() {
         ctx = myScene.context;
-
         ctx.drawImage(fondo, 0,0,ctx.canvas.width, ctx.canvas.height);
+        ctx.fillStyle = "red";
+        ctx.fillRect(1200, 380, 40, 40);
+        ctx.fillStyle = "green";
+        ctx.fillRect(250, 420, 50, 50);
         ctx.save();
          ctx.translate(this.x, this.y);
          ctx.rotate(this.angle);
@@ -67,10 +70,6 @@ function RobotI(width, height, color, x, y, type) {
                  -this.height/2,
                  this.width, this.height);
          ctx.restore();
-         ctx.fillStyle = "red";
-         ctx.fillRect(800, 450, this.width, this.height);
-         ctx.fillStyle = "green";
-         ctx.fillRect(200, 350, this.width, this.height);
 
     }
     this.newPos = function() {
@@ -95,10 +94,10 @@ function RobotI(width, height, color, x, y, type) {
 
     this.getInfrared = function(){
 
-      this.xInfraredL = this.x+52*Math.cos(((this.w * Math.PI/180)+(Math.PI/2)))
-      this.xInfraredR = this.x+52*Math.cos(((this.w * Math.PI/180)+(3*Math.PI/2)))
-      this.yInfraredL = this.y- 52*Math.sin(((this.w * Math.PI/180)+(Math.PI/2)));
-      this.yInfraredR = this.y-52*Math.sin(((this.w * Math.PI/180)+(3*Math.PI/2)));
+      this.xInfraredL = this.x+45.6*Math.cos(((this.w * Math.PI/180)+(15.26*Math.PI/180)))
+      this.xInfraredR = this.x+45.6*Math.cos(((this.w * Math.PI/180)+(-15.26*Math.PI/180)))
+      this.yInfraredL = this.y- 45.6*Math.sin(((this.w * Math.PI/180)+(15.26*Math.PI/180)))
+      this.yInfraredR = this.y-45.6*Math.sin(((this.w * Math.PI/180)+(-15.26*Math.PI/180)))
       this.xInfraredF = this.x+52*Math.cos((this.w * Math.PI/180));
       this.yInfraredF = this.y-52*Math.sin((this.w * Math.PI/180));
       ctx = myScene.context;
