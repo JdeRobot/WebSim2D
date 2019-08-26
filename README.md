@@ -58,3 +58,9 @@ https://www.youtube.com/watch?v=cetckZfJEsQ
   - ir = myRobot.getInfrared()*
   
 *The function returns three arrays of RGB data. The first corresponds to the front IR sensor, the second to the left sensor and the third to the right (ir.Front, ir.Left, ir.Right)
+
+***To Ray-Cast Sensor:***
+
+  - ir = myRobot.getRayCast()*
+  
+*The function returns an array with all rays. Each ray contains the information of the x and y coordinates where each ray ends
