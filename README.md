@@ -61,6 +61,7 @@ https://www.youtube.com/watch?v=cetckZfJEsQ
 
 ***To Ray-Cast Sensor:***
 
-  - ir = myRobot.getRayCast()*
+  - ray = myRobot.getRayCast()*
   
-*The function returns an array with all rays. Each ray contains the information of the x and y coordinates where each ray ends
+*The function returns an array with all rays. Each ray contains the information of the x and y coordinates, and 
+the range to which each ray reaches where each ray ends (ray[n].x, ray[n].y or ray[n].range)
