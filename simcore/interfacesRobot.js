@@ -62,9 +62,9 @@ function RobotI(width, height, color, x, y, type) {
         ctx = myScene.context;
         ctx.drawImage(fondo, 0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.fillStyle = "red";
-        ctx.fillRect(1200, 380, 40, 40);
+        ctx.fillRect(1170, 380, 50, 50);
         ctx.fillStyle = "green";
-        ctx.fillRect(250, 420, 50, 50);
+        ctx.fillRect(175, 55, 100, 25);
         ctx.save();
          ctx.translate(this.x, this.y);
          ctx.rotate(this.angle);
@@ -167,12 +167,9 @@ function setRayCast(angle,x,y, ctx){
     var collision = false;
     var r = 1;
     while (!collision && r <=raymax){
-      bx = x + (r-1)*Math.cos(rayangle);
-      by = y - (r-1) * Math.sin(rayangle);
-      dx = x + r*Math.cos(rayangle);
-      dy = y - r * Math.sin(rayangle);
+      dx = x + (r-1)*Math.cos(rayangle);
+      dy = y - (r-1) * Math.sin(rayangle);
       var pixel = ctx.getImageData(dx,dy,1,1).data;
-      var bpixel = ctx.getImageData(bx,by,1,1).data;
       if (pixel[2] > pixel[1] && pixel[2] > pixel[0]){
         r+=2;
       } else if (pixel[0] == 255 && pixel[1] == 255 && pixel[2] == 255) {
@@ -183,8 +180,9 @@ function setRayCast(angle,x,y, ctx){
         collision = true;
       }
     }
-    raycast[ray].x = dx;
-    raycast[ray].y = dy;
+    raycast[ray].x = Math.round((dx)*100)/100;
+    raycast[ray].y = Math.round((dy)*100)/100;
+    raycast[ray].range = Math.round((r-1)*100)/100;;
   }
   for (var ray = 0; ray<nray; ray++){
     dx = raycast[ray].x;
