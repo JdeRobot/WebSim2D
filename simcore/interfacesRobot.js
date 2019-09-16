@@ -14,7 +14,7 @@ var myScene= {
         var height = parseInt(cs.getPropertyValue('height'), 10);
         this.canvas.width = width;
         this.canvas.height = height;
-        this.canvas.id = "myCanvas"
+        this.canvas.id = "myCanvas";
         this.context = this.canvas.getContext("2d");
         var ctx = this.context
         div.appendChild(this.canvas);
@@ -47,7 +47,7 @@ function RobotI(width, height, color, x, y, type) {
     this.height = height;
     this.v = 0;
     this.w = 0;
-    this.angle =0;
+    this.angle = 0;
     this.x = x;
     this.y = y;
     this.xInfraredL = this.x;
@@ -60,11 +60,6 @@ function RobotI(width, height, color, x, y, type) {
     var imgData;
     this.update = function() {
         ctx = myScene.context;
-        ctx.drawImage(fondo, 0,0,ctx.canvas.width, ctx.canvas.height);
-        ctx.fillStyle = "red";
-        ctx.fillRect(1170, 380, 50, 50);
-        ctx.fillStyle = "green";
-        ctx.fillRect(175, 55, 100, 25);
         ctx.save();
          ctx.translate(this.x, this.y);
          ctx.rotate(this.angle);
@@ -72,11 +67,70 @@ function RobotI(width, height, color, x, y, type) {
                  -this.width/2,
                  -this.height/2,
                  this.width, this.height);
+         let src = cv.imread('myCanvas');
+         let dst1 = new cv.Mat();
+         let low = new cv.Mat(src.rows, src.cols, src.type(), [0, 0, 0, 0]);
+         let high = new cv.Mat(src.rows, src.cols, src.type(), [255, 255, 0, 255]);
+         cv.inRange(src, low, high, dst1);
+         src.delete(); low.delete(); high.delete();
          ctx.restore();
+         ctx.drawImage(fondo, 0,0,ctx.canvas.width, ctx.canvas.height);
+         ctx.fillStyle = "red";
+         ctx.fillRect(1170, 380, 50, 50);
+         ctx.fillStyle = "green";
+         ctx.fillRect(175, 55, 100, 25);
+         ctx.save();
+         src = cv.imread('myCanvas');
+         let dst2 = new cv.Mat();
+         low = new cv.Mat(src.rows, src.cols, src.type(), [0, 0, 0, 0]);
+         high = new cv.Mat(src.rows, src.cols, src.type(), [255, 255, 0, 255]);
+         cv.inRange(src, low, high, dst2);
+         src.delete(); low.delete(); high.delete();
+         ctx.translate(this.x, this.y);
+         ctx.rotate(this.angle);
+         ctx.drawImage(this.image,
+                 -this.width/2,
+                 -this.height/2,
+                 this.width, this.height);
+         ctx.restore();
+         let dst = new cv.Mat();
+         let mask = new cv.Mat();
+         let dtype = -1;
+         cv.subtract(dst2, dst1, dst, mask, dtype);
+         cv.threshold(dst, dst, 177, 200, cv.THRESH_BINARY);
+         let contours = new cv.MatVector();
+         let hierarchy = new cv.Mat();
+         cv.findContours(dst, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
+         let cnt = contours.get(0);
+         let rect;
+         try{
+           rect = cv.boundingRect(cnt);
+           cnt.delete();
+         } catch (e) {
+           rect = {}
+           rect.x = null;
+           rect.y = null;
+         }
+         dst1.delete(); dst2.delete(); dst.delete(); mask.delete();
+         contours.delete(); hierarchy.delete();
+         if (rect.x != null){
+           var pc = {}
+           pc.x = this.x;
+           pc.y = this.y
+           var check = checkCollision(rect,pc,this.w);
+           if (check && this.v>=0){
+             this.newPos();
+           } else if (!check && this.v<=0) {
+             this.newPos();
+           } else {
+             this.v = 0;
+           }
+         } else {
+           this.newPos();
+         }
          imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
-         //getMap(imgData,ctx.canvas.width, ctx.canvas.height);
-         this.raycast = setRayCast(this.w,this.x+54*Math.cos((this.w * Math.PI/180)),
-                      this.y-54*Math.sin((this.w * Math.PI/180)), ctx);
+         this.raycast = setRayCast(this.w,this.x+53*Math.cos((this.w * Math.PI/180)),
+                      this.y-53*Math.sin((this.w * Math.PI/180)), ctx);
     }
     this.newPos = function() {
         this.x += this.v/10*Math.cos(this.w * Math.PI/180);
@@ -104,8 +158,8 @@ function RobotI(width, height, color, x, y, type) {
       this.xInfraredR = this.x+47*Math.cos(((this.w * Math.PI/180)+(-15.26*Math.PI/180)))
       this.yInfraredL = this.y- 47*Math.sin(((this.w * Math.PI/180)+(15.26*Math.PI/180)))
       this.yInfraredR = this.y-47*Math.sin(((this.w * Math.PI/180)+(-15.26*Math.PI/180)))
-      this.xInfraredF = this.x+52*Math.cos((this.w * Math.PI/180));
-      this.yInfraredF = this.y-52*Math.sin((this.w * Math.PI/180));
+      this.xInfraredF = this.x+51*Math.cos((this.w * Math.PI/180));
+      this.yInfraredF = this.y-51*Math.sin((this.w * Math.PI/180));
       ctx = myScene.context;
       var iLeft = ctx.getImageData(this.xInfraredL,this.yInfraredL,1,1).data;
       var iRight = ctx.getImageData(this.xInfraredR,this.yInfraredR ,1,1).data;
@@ -127,33 +181,15 @@ function RobotI(width, height, color, x, y, type) {
 
     this.clearVelocity = function(){
       this.v = 0
-      this.w = 0
     }
 
 }
 
 function updateScene(){
   myScene.clear();
-  myRobot.newPos();
   myRobot.update();
 }
 
-function getMap(pixels, width, height) {
-  var i = 0;
-  for (var y = 0; y < height; y += 1){
-    map[y] = []
-    for (var x = 0; x < width; x += 1){
-      if (pixels[i] == 255 && pixels[i+1] == 255 && pixels[i+2] == 255){
-        map[y][x]=0;
-      } else if (pixels[i]== 0 && pixels[i+1] == 0 && pixels[i+2]==255) {
-        map[y][x]=0;
-      } else {
-        map[y][x]=1;
-      }
-      i += 1
-    }
-  }
-}
 
 
 function setRayCast(angle,x,y, ctx){
@@ -195,4 +231,54 @@ function setRayCast(angle,x,y, ctx){
 		ctx.stroke();
   }
   return raycast
+}
+
+function checkCollision(p,pc,w){
+  var pd = {}
+  var v;
+  pd.x = pc.x+50*Math.cos((w * Math.PI/180));
+  pd.y = pc.y-52*Math.sin((w * Math.PI/180));
+
+  if ((pd.x -pc.x) >=0 && (pd.y-pc.y)<=0){
+    if (pc.x<=p.x &&  pc.y >= p.y) {
+      v = false;
+    } else if (pc.x>=p.x &&  pc.y >= p.y) {
+      v = false;
+    } else if (pc.x>=p.x &&  pc.y <= p.y) {
+      v = true
+    } else if (pc.x<=p.x &&  pc.y <= p.y) {
+      v = true;
+    }
+  } else if ((pd.x -pc.x) <=0 && (pd.y-pc.y)<=0) {
+    if (pc.x<=p.x &&  pc.y >= p.y) {
+      v = false;
+    } else if (pc.x>=p.x &&  pc.y >= p.y) {
+      v = false;
+    } else if (pc.x>=p.x &&  pc.y <= p.y) {
+      v = true
+    } else if (pc.x<=p.x &&  pc.y <= p.y) {
+      v = true;
+    }
+  } else if ((pd.x -pc.x) <=0 && (pd.y-pc.y)>=0) {
+      if (pc.x<=p.x &&  pc.y >= p.y) {
+        v = true;
+      } else if (pc.x>=p.x &&  pc.y >= p.y) {
+        v = true;
+      } else if (pc.x>=p.x &&  pc.y <= p.y) {
+        v = false;
+      } else if (pc.x<=p.x &&  pc.y <= p.y) {
+        v = false;
+      }
+    } else if ((pd.x -pc.x) >=0 && (pd.y-pc.y)>=0) {
+        if (pc.x<=p.x &&  pc.y >= p.y) {
+          v = true;
+        } else if (pc.x>=p.x &&  pc.y >= p.y) {
+          v = true;
+        } else if (pc.x>=p.x &&  pc.y <= p.y) {
+          v = false;
+        } else if (pc.x<=p.x &&  pc.y <= p.y) {
+          v = false;
+        }
+  }
+  return v
 }

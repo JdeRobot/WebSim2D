@@ -1,23 +1,30 @@
-var v = 0 ;
-var w = 0;
+
 var intervalInfrared;
 
 function brake(){
+  var v
+  v = myRobot.getV()
   v += -1
   myRobot.setV(v)
 }
 
 function speed() {
+  var v
+  v = myRobot.getV()
   v += 1
   myRobot.setV(v)
 };
 
 function right() {
+  var w
+  w = myRobot.getW()
   w += 0.5
   myRobot.setW(w);
 };
 
 function left() {
+  var w
+  w = myRobot.getW()
   w += -0.5
   myRobot.setW(w)
 };
