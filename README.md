@@ -65,3 +65,9 @@ https://www.youtube.com/watch?v=cetckZfJEsQ
   
 *The function returns an array with all rays. Each ray contains the information of the x and y coordinates, and 
 the range to which each ray reaches where each ray ends (ray[n].x, ray[n].y or ray[n].range)
+
+***To Cameras:***
+
+  - img = myRobot.getImage()*
+  
+*The function returns an array with the width, height of each frame and a buffer with the color components of each pixel. The images are 150x100. The next video show the cameras support: https://www.youtube.com/watch?v=JTzYaz_EOuU&feature=youtu.be
