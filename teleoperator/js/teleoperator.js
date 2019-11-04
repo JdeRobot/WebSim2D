@@ -41,3 +41,26 @@ function getInfrared(){
   },1);
 
 }
+
+
+function setImage(){
+  var div = document.getElementById("sensor");
+  var canvas = document.createElement("canvas");
+  var ctx = canvas.getContext("2d");
+  var img = myRobot.getImage();
+  canvas.width = img.width;
+  canvas.height = img.height;
+  var idata = ctx.createImageData(img.width, img.height);
+  idata.data.set(img.buffer);
+  ctx.putImageData(idata, 0, 0);
+  div.appendChild(canvas);
+  var imgInterval = setInterval(function(){
+    img = myRobot.getImage();
+    canvas.width = img.width;
+    canvas.height = img.height;
+    idata = ctx.createImageData(img.width, img.height);
+    idata.data.set(img.buffer);
+    ctx.putImageData(idata, 0, 0);
+  },1000);
+
+}

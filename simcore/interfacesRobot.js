@@ -2,8 +2,9 @@
 var myRobot;
 var map = [];
 var fondo = new Image();
-var nray = 25;
+var nray = 15;
 var raymax = 200;
+var cray = []
 fondo.src = "../assets/resources/follow_line.png";
 var myScene= {
     canvas : document.createElement("canvas"),
@@ -183,6 +184,33 @@ function RobotI(width, height, color, x, y, type) {
       this.v = 0
     }
 
+    this.getImage = function(){
+      var width = 150;
+      var height = 100;
+      var pixel = [];
+      var maxr = width/nray;
+      for (var ray = 0; ray<nray;ray++){
+        for (var r = 1; r <= maxr; r++){
+          pixel[ray*maxr+r] = cray[ray]
+        }
+      }
+      var img = [];
+      for (var y = 0; y < height; y++){
+        for (var x = 0; x < width; x++){
+          var pos = (y*width+x)*4;
+          img[pos] = pixel[x+1][0];
+          img[pos+1] = pixel[x+1][1];
+          img[pos+2] = pixel[x+1][2];
+          img[pos+3] = pixel[x+1][3];
+        }
+      }
+      var imgData = [];
+      imgData.width = width;
+      imgData.height = height;
+      imgData.buffer = img;
+      return imgData;
+    }
+
 }
 
 function updateScene(){
@@ -190,48 +218,6 @@ function updateScene(){
   myRobot.update();
 }
 
-
-
-function setRayCast(angle,x,y, ctx){
-  var raycast = [];
-  var aray = 120/nray;
-  for (var ray = 0; ray < nray; ray++){
-    raycast[ray] = [];
-    var rayangle = (60-ray*aray+angle)*(Math.PI/180)
-    var dx = 0
-    var dy = 0
-    var collision = false;
-    var r = 1;
-    while (!collision && r <=raymax){
-      dx = x + (r-1)*Math.cos(rayangle);
-      dy = y - (r-1) * Math.sin(rayangle);
-      var pixel = ctx.getImageData(dx,dy,1,1).data;
-      if (pixel[2] > pixel[1] && pixel[2] > pixel[0]){
-        r+=2;
-      } else if (pixel[0] == 255 && pixel[1] == 255 && pixel[2] == 255) {
-        r+=2;
-      } else if (pixel[0] == 0 && pixel[1] == 0 && pixel[2] == 255) {
-        r+=2;
-      } else {
-        collision = true;
-      }
-    }
-    raycast[ray].x = Math.round((dx)*100)/100;
-    raycast[ray].y = Math.round((dy)*100)/100;
-    raycast[ray].range = Math.round((r-1)*100)/100;;
-  }
-  for (var ray = 0; ray<nray; ray++){
-    dx = raycast[ray].x;
-    dy = raycast[ray].y;
-    ctx.lineWidth = 1;
-		ctx.strokeStyle = "#E6C509";
-		ctx.beginPath();
-		ctx.moveTo(x, y);
-		ctx.lineTo(dx, dy);
-		ctx.stroke();
-  }
-  return raycast
-}
 
 function checkCollision(p,pc,w){
   var pd = {}
@@ -281,4 +267,58 @@ function checkCollision(p,pc,w){
         }
   }
   return v
+}
+
+function setRayCast(angle,x,y, ctx){
+  var raycast = [];
+  var aray = 120/nray;
+  for (var ray = 0; ray < nray; ray++){
+    raycast[ray] = [];
+    var rayangle = (60-ray*aray+angle)*(Math.PI/180)
+    var dx = 0
+    var dy = 0
+    var collision = false;
+    var r = 1;
+    while (!collision && r <=raymax){
+      dx = x + (r-1)*Math.cos(rayangle);
+      dy = y - (r-1) * Math.sin(rayangle);
+      var pixel = ctx.getImageData(dx,dy,1,1).data;
+      if (pixel[2] > pixel[1] && pixel[2] > pixel[0]){
+        r+=2;
+      } else if (pixel[0] == 255 && pixel[1] == 255 && pixel[2] == 255) {
+        r+=2;
+      } else if (pixel[0] == 0 && pixel[1] == 0 && pixel[2] == 255) {
+        r+=2;
+      } else {
+        collision = true;
+      }
+    }
+
+    var cx = x + (r+4)*Math.cos(rayangle);
+    var cy = y - (r+4) * Math.sin(rayangle);
+    var cpixel = ctx.getImageData(cx,cy,1,1).data;
+
+    if (cpixel[2] > cpixel[1] && cpixel[2] > cpixel[0]){
+      cpixel[0] = 255;
+      cpixel[1] = 255;
+      cpixel[2] = 255;
+      cpixel[3] = 255;
+    }
+    cray[ray] = cpixel;
+    raycast[ray].x = Math.round((dx)*100)/100;
+    raycast[ray].y = Math.round((dy)*100)/100;
+    raycast[ray].range = Math.round((r-1)*100)/100;;
+  }
+
+  for (var ray = 0; ray<nray; ray++){
+    dx = raycast[ray].x;
+    dy = raycast[ray].y;
+    ctx.lineWidth = 1;
+		ctx.strokeStyle = "#E6C509";
+		ctx.beginPath();
+		ctx.moveTo(x, y);
+		ctx.lineTo(dx, dy);
+		ctx.stroke();
+  }
+  return raycast
 }
