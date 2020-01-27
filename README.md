@@ -52,22 +52,24 @@ https://www.youtube.com/watch?v=cetckZfJEsQ
 ***To clear the velocity values:***
 
   - myRobot.clearVelocity()
-  
+
 ***To Infrared Sensor:***
 
   - ir = myRobot.getInfrared()*
-  
-*The function returns three arrays of RGB data. The first corresponds to the front IR sensor, the second to the left sensor and the third to the right (ir.Front, ir.Left, ir.Right)
+
+*The function returns three arrays of RGB data. The first corresponds to the front IR sensor, the second to the left sensor and the third to the right (ir.Front, ir.Left, ir.Right)*
 
 ***To Ray-Cast Sensor:***
 
   - ray = myRobot.getRayCast()*
-  
-*The function returns an array with all rays. Each ray contains the information of the x and y coordinates, and 
-the range to which each ray reaches where each ray ends (ray[n].x, ray[n].y or ray[n].range)
 
-***To Cameras:***
+*The function returns an array with all rays. Each ray contains the information of the x and y coordinates, and
+the range to which each ray reaches where each ray ends (ray[n].x, ray[n].y or ray[n].range)*
 
-  - img = myRobot.getImage()*
-  
-*The function returns an array with the width, height of each frame and a buffer with the color components of each pixel. The images are 150x100. The next video show the cameras support: https://www.youtube.com/watch?v=JTzYaz_EOuU&feature=youtu.be
+***Blocking methods:***
+
+- await myRobot.advanceTo(d). Advance to the distance indicated by the variable d in meters
+
+- await myRobot.turnUpTo(angle). Turn up to the angle indicated by a in degrees
+
+- await myRobot.sleepTo(s). Sleep to the time indicated by s in seconds

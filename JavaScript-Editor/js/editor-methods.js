@@ -19,7 +19,6 @@ function toggleCameraDisplay(){
 
 function getCode(editor){
   var content = editor.getValue();
-
   return content;
 }
 
