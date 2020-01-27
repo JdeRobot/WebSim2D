@@ -144,6 +144,7 @@ function RobotI(width, height, color, x, y, type) {
       this.v = v
     }
 
+
     this.setW = function(w){
       this.angle = -w*Math.PI/180
       this.w = w
@@ -179,6 +180,30 @@ function RobotI(width, height, color, x, y, type) {
     this.getW = function(){
       return this.w
     }
+
+    this.advanceTo = async function(distance){
+      initial_position_x = this.x;
+      initial_position_y = this.y;
+      distance > 0 ? this.setV(1) : this.setV(-1);
+      var time = Date.now();
+      await sleep(distance);
+      this.setV(0);
+    }
+
+    this.turnUpTo = async function(angle) {
+        let initial_position = this.angle;
+        while (Math.abs(initial_position - this.angle) <= Math.abs(angle*Math.PI/180)) {
+            await sleep(0.001);
+            angle > 0 ? this.w+=-0.15 : this.w+=0.15;
+            this.setW(this.w);
+        }
+    }
+
+    this.sleepTo = async function(time){
+      await sleep(time);
+    }
+
+
 
     this.clearVelocity = function(){
       this.v = 0
@@ -321,4 +346,9 @@ function setRayCast(angle,x,y, ctx){
 		ctx.stroke();
   }
   return raycast
+}
+
+function sleep(s){
+  var ms = s*1000;
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

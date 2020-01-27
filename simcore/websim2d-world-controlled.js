@@ -12,10 +12,9 @@ function startStopCode(play, reservedVariables, mainInterval, codeContent){
     image.src = "../assets/resources/play-icon.png";
     //clearInterval(mainInterval);
     if (mainInterval && typeof mainInterval === "function"){
-      console.log("hola");
      mainInterval(); //mainInterval now is a function that clears setIntervalSynchronous
     }else{
-      console.log("adios")
+      null
     }
     myRobot.clearVelocity();
 
