@@ -73,3 +73,6 @@ the range to which each ray reaches where each ray ends (ray[n].x, ray[n].y or r
 - await myRobot.turnUpTo(angle). Turn up to the angle indicated by a in degrees
 
 - await myRobot.sleepTo(s). Sleep to the time indicated by s in seconds
+
+The following video shows the blockin methods running:
+https://www.youtube.com/watch?v=9CLzcUwfxDg
