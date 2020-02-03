@@ -1,10 +1,11 @@
 var mainInterval;
 var play = false;
 var reservedVariables = ['myRobot,', 'mainInterval,', 'myRobot;', 'mainInterval;'];
+var brains = new Brains();
 document.addEventListener('code-to-run', (event)=>{
 
   var codeContent = "async function myAlgorithm(){\n"+event.detail['code']+"}\n myAlgorithm();";
-  var jsonOutput = startStopCode(play, reservedVariables, mainInterval, codeContent);
+  var jsonOutput = brains.startStopCode(play, reservedVariables, mainInterval, codeContent);
 
   play = jsonOutput["play"];
   mainInterval = jsonOutput["mainInterval"];
@@ -19,9 +20,9 @@ document.addEventListener('reset', (event)=>{
   for(var i = 0; i<3; i++){
     var jsonOutput = null;
     if (i == 1){
-      jsonOutput = startStopCode(play, reservedVariables, mainInterval, codeContent);
+      jsonOutput = brains.startStopCode(play, reservedVariables, mainInterval, codeContent);
     }else{
-      jsonOutput = startStopCode(play, reservedVariables, mainInterval, "");
+      jsonOutput = brains.startStopCode(play, reservedVariables, mainInterval, "");
     }
     play = jsonOutput["play"];
     mainInterval = jsonOutput["mainInterval"];
