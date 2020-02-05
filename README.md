@@ -76,3 +76,36 @@ the range to which each ray reaches where each ray ends (ray[n].x, ray[n].y or r
 
 The following video shows the blockin methods running:
 https://www.youtube.com/watch?v=9CLzcUwfxDg
+
+## Example
+An example of code to run in the editor is shown. This code makes use of the advanceTo and turnUpTo blocking methods, as well as the ray-cast sensor:
+
+~~~
+var raycast = myRobot.getRayCast();
+var run = true;
+var timeout = setTimeout(function(){
+        run = false;
+},600000);
+while (run){
+    if (raycast[6].Range < 200 & 
+            raycast[7].range < 200 &
+            raycast[8].range < 200 & 
+            raycast[9].range < 200) {
+        await myRobot.turnUpTo(90);    
+    } else if (raycast[7].Range < 200 & 
+            raycast[6].range < 200) {
+        await myRobot.turnUpTo(45);
+    } else if (raycast[8].Range < 200 &
+                raycast[9].range < 200) {
+        await myRobot.turnUpTo(-45);
+    } else if (raycast[6].range < 200) {
+        await myRobot.turnUpTo(15);
+    } else if (raycast[9].range < 200){
+        await myRobot.turnUpTo(-15);
+    } else {
+        await myRobot.advanceTo(75);
+    }
+    
+    raycast = myRobot.getRayCast();
+}
+~~~
