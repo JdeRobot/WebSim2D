@@ -78,7 +78,7 @@ The following video shows the blockin methods running:
 https://www.youtube.com/watch?v=9CLzcUwfxDg
 
 ## Example
-An example of code to run in the editor is shown. This code makes use of the advanceTo and turnUpTo blocking methods, as well as the ray-cast sensor:
+An example of code to run in the editor is shown. This code makes use of the advanceTo and turnUpTo blocking methods, as well as the ray-cast sensor. The loop runs for 10 minutes:
 
 ~~~
 var raycast = myRobot.getRayCast();
