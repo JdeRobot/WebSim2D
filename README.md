@@ -109,3 +109,6 @@ while (run){
     raycast = myRobot.getRayCast();
 }
 ~~~
+
+The following video shows the example running:
+https://www.youtube.com/watch?v=QuO8BYozK4M
